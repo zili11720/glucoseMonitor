@@ -1,5 +1,5 @@
 const express = require('express')
-const loginRouter = require('./routers/loginRouter'); // Import the login router
+const loginRouter = require('./routes/loginRoute'); // Import the login router
 const app = express()
 const port = 3000
 
