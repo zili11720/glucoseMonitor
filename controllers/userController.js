@@ -8,7 +8,7 @@ async function login(req, res) {
   
     if (isValidUser) {
       // If valid, redirect to the next page 
-      res.redirect('./home');
+      res.redirect('/home');
     } else {
       // If invalid, send back an error message without 
       res.status(401).send({ error: 'Invalid username or password' });

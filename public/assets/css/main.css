@@ -3998,7 +3998,7 @@ input, select, textarea {
 		background-color: #1d242a;
 	}
 
-	/* Center the form and adjust input sizes */
+/* Login Form */
 .login-form {
     display: flex;
     flex-direction: column;
@@ -4027,3 +4027,130 @@ input, select, textarea {
     color: white;
     border: none;
 }
+
+/*Picture apload square*/
+.upload-square {
+	display: inline-block;
+	width: 150px;
+	height: 150px;
+	background-color: #cccccc;
+	border: 2px dashed #999999;
+	color: #666666;
+	text-align: center;
+	line-height: 150px;
+	cursor: pointer;
+	font-size: 16px;
+	font-family: Arial, sans-serif;
+	transition: background-color 0.3s ease;
+  }
+  
+  .upload-square:hover {
+	background-color: #b3b3b3;
+  }
+  
+  .upload-square span {
+	display: block;
+	pointer-events: none; /* Ensures the text is not clickable */
+  }
+  
+  #imageUpload {
+	display: none;
+  }
+
+
+/* Form Container Styling */
+
+/* Form Container Styling */
+.form-container {
+	background-color: #f4f4f9; /* Light grey background */
+	padding: 2.5em;
+	max-width: 800px; /* Make it wider */
+	margin: 0 auto;
+	border-radius: 12px; /* Rounded corners */
+	box-shadow: 0px 6px 20px rgba(0, 0, 0, 0.15); /* Larger shadow */
+	border: 1px solid #cccccc;
+  }
+  
+  /* Form Group Styling */
+  .form-container {
+	background-color: #f1f1f1; /* Light gray background */
+	padding: 1.5em;
+	max-width: 600px; /* Smaller width */
+	margin: 0 auto;
+	border-radius: 10px;
+	box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.1); /* Softer shadow */
+	border: 1px solid #dddddd;
+  }
+  
+  /* Form Group Styling */
+  .form-group {
+	margin-bottom: 1em; /* Less space between fields */
+  }
+  
+  label {
+	display: block;
+	margin-bottom: 0.4em;
+	color: #444; /* Medium gray text */
+	font-weight: 600; /* Bold label */
+	font-size: 0.9em; /* Smaller label font */
+  }
+  
+  select, input[type="tel"], input[type="email"], textarea {
+	width: 100%;
+	padding: 0.75em;
+	border: 1px solid #cccccc; /* Light border */
+	border-radius: 5px; /* Small rounded corners */
+	background-color: #fff; /* White background */
+	color: #333; /* Dark text */
+	font-size: 0.85em; /* Smaller input font */
+	box-shadow: inset 0px 1px 3px rgba(0, 0, 0, 0.05); /* Softer inset shadow */
+  }
+  
+  select:focus, input[type="tel"]:focus, input[type="email"]:focus, textarea:focus {
+	outline: none;
+	border-color: #5c8aff; /* Light blue border on focus */
+	background-color: #f9f9f9; /* Slightly lighter background on focus */
+  }
+  
+  textarea {
+	resize: vertical;
+	height: 100px; /* Smaller textarea */
+  }
+  
+  /* Submit Button Styling */
+  .submit-button {
+	background-color: #5c8aff; /* Light blue background */
+	color: #fff;
+	border: none;
+	padding: 0.75em 1.5em;
+	border-radius: 5px; /* Slightly rounded button */
+	cursor: pointer;
+	font-size: 0.9em; /* Smaller button text */
+	transition: background-color 0.3s ease;
+	width: 100%;
+  }
+  
+  .submit-button:hover {
+	background-color: #466eb8; /* Darker blue on hover */
+  }
+  
+  /* Add spacing between form and footer */
+  .wrapper {
+	padding-bottom: 2.5em;
+  }
+  
+  /* Media Queries */
+  @media screen and (max-width: 768px) {
+	.form-container {
+	  padding: 1em;
+	  max-width: 100%;
+	}
+  
+	.submit-button {
+	  padding: 0.6em;
+	}
+  }
+  
+  
+
+  
