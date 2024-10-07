@@ -4,7 +4,8 @@
   "description": "A web application for monitoring blood glucose levels",
   "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node app.js"
   },
   "keywords": [
     "food",
@@ -17,6 +18,7 @@
   "dependencies": {
     "ejs": "^3.1.10",
     "express": "^4.21.0",
+    "mssql": "^11.0.1",
     "nodemon": "^3.1.7"
   }
 }
