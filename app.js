@@ -1,5 +1,5 @@
 const express = require('express')
-const loginRouter = require('./routes/loginRoute'); // Import the login router
+const userRouter = require('./routes/userRoutes'); // Import the login router
 const app = express()
 const port = 3000
 
@@ -14,7 +14,7 @@ app.get('/', (req, res) => {
   })
 
 // Routes
-app.use('/', loginRouter);
+app.use('/', userRouter);
   
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`)

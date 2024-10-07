@@ -1,4 +1,4 @@
-const userDataAccess = require('../dataAccess/loginDataAccess');
+const userDataAccess = require('../dataAccess/userDataAccess');
 
 async function validateUser(username, password) {
   try {
