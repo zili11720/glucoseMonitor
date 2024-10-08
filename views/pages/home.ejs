@@ -11,14 +11,20 @@
     </header>
     <section class="wrapper style5">
       <div class="inner">
-        <!-- Image Upload Form -->
-        <h3>Upload a Picture of your meal</h3>
-        <form id="uploadForm" action="/upload" method="POST" enctype="multipart/form-data">
-          <label for="imageUpload" class="upload-square">
-            <span>Click to upload</span>
+        <!-- Image URL Input Form -->
+        <h3>Enter the URL of your meal picture</h3>
+        <form id="urlForm" action="/home/upload" method="POST">
+          <label for="imageUrl" class="upload-square">
+            <span>Enter Image URL</span>
           </label>
-          <input type="file" id="imageUpload" name="image" accept="image/*" required style="display: none;">
+          <input type="url" id="imageUrl" name="imageUrl" placeholder="https://example.com/image.jpg" required>
+          <button type="submit">Analyze Image</button>
         </form>
+
+        <!-- Display the analyzed food tag -->
+        <% if (typeof foodTag !== 'undefined') { %>
+          <p>Detected food: <strong><%= foodTag %></strong></p>
+        <% } %>
       </div>
     </section>
   </article>
