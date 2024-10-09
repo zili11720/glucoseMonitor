@@ -15,3 +15,19 @@ exports.analyzeImage = async (req, res) => {
         res.status(500).send('Error analyzing the image');
     }
 };
+exports.getUSDAglucose = async (foodTag) => { // Change to accept foodTag directly
+    try {
+        
+        let foodTag ="pasta"
+        // Call the model to get the glucose level
+
+        const glucoseLevel = await newMealModel.getUSDAglucose(foodTag);
+        console.log(glucoseLevel)
+
+        // Return the glucose level
+       // return glucoseLevel; // Return glucose level instead of sending a response
+    } catch (error) {
+        console.error('Error fetching glucose level:', error);
+        throw error; // Rethrow the error for the analyzeImage function to handle
+    }
+};

@@ -31,4 +31,20 @@ const isFoodImage = (tags) => {
   return tags.some(tag => foodKeywords.includes(tag.tag.en.toLowerCase()));
 };
 
-module.exports = { analyzeImage};
+// Get USDA glucose level (new function)
+const getUSDAglucose = async (foodTag) => {
+  
+  try {
+    const foodData = await newMealDataAccess.getUSDAglucose(foodTag);
+      
+    // Find total sugars from the food's nutrients
+    const totalSugars = foodData.foodNutrients.find(nutrient => nutrient.nutrientName.toLowerCase() === 'total sugars');
+    // Return total sugars if found, else return null
+    return totalSugars ? totalSugars.value : null;
+  } catch (error) {
+      console.error('Error fetching glucose data:', error);
+      throw error;
+  }
+};
+
+module.exports = { analyzeImage, getUSDAglucose};
