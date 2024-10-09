@@ -7,22 +7,47 @@
   <article id="main">
     <header>
       <h2>Personal Space</h2>
-      <p>Please update your daily meals:</p>
+      <p class="white-text">Please update your daily meals:</p>
     </header>
     <section class="wrapper style5">
       <div class="inner">
         <!-- Image URL Input Form -->
         <h3>Enter the URL of your meal picture</h3>
+        
         <form id="urlForm" action="/home/upload" method="POST">
-          <label for="imageUrl" class="upload-square">
-            <span>Enter Image URL</span>
-          </label>
-          <input type="url" id="imageUrl" name="imageUrl" placeholder="https://example.com/image.jpg" required>
+          <!-- Image URL -->
+          <div class="form-group">
+            <label for="imageUrl">Image URL:</label>
+            <input type="url" id="imageUrl" name="imageUrl" placeholder="https://example.com/image.jpg" required>
+          </div>
 
           <!-- Date Picker -->
-          <input type="date" id="mealDate" name="mealDate" required>
+          <div class="form-group">
+            <label for="mealDate">Select the Meal Date:</label>
+            <input type="date" id="mealDate" name="mealDate" required>
+          </div>
 
-          <button type="submit">Analyze Image</button>
+          <!-- Meal Type Dropdown -->
+          <div class="form-group">
+            <label for="mealType">Meal Type:</label>
+            <select id="mealType" name="mealType" required>
+              <option value="" disabled selected>Choose a meal type</option>
+              <option value="breakfast">Breakfast</option>
+              <option value="lunch">Lunch</option>
+              <option value="dinner">Dinner</option>
+            </select>
+          </div>
+
+          <!-- Glucose Level Input -->
+          <div class="form-group">
+            <label for="glucoseLevel">Glucose 2 hours after meal:</label>
+            <input type="number" id="glucoseLevel" name="glucoseLevel" placeholder="Enter glucose level" required>
+          </div>
+
+          <!-- Submit Button -->
+          <div class="form-group">
+            <button type="submit">Analyze Image</button>
+          </div>
         </form>
 
         <!-- Display the analyzed food tag -->
