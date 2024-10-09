@@ -27,6 +27,11 @@
             <input type="date" id="mealDate" name="mealDate" required>
           </div>
 
+          <!-- Button to check day type -->
+          <div class="form-group">
+            <button type="button" id="checkDayButton">Check Day Type</button>
+          </div>
+
           <!-- Meal Type Dropdown -->
           <div class="form-group">
             <label for="mealType">Meal Type:</label>
@@ -59,5 +64,21 @@
   </article>
 
   <%- include('../partials/footer') %>
+
+  <!-- Script for redirecting based on selected date -->
+  <script>
+    document.getElementById('checkDayButton').addEventListener('click', function() {
+      const selectedDate = document.getElementById('mealDate').value;
+      
+      if (selectedDate) {
+        // Construct the URL with the selected date as a query parameter
+        const url = `/home/getDateType?mealDate=${selectedDate}`;
+        // Redirect the user to the URL
+        window.location.href = url;
+      } else {
+        alert('Please select a date');
+      }
+    });
+  </script>
 </body>
 </html>
