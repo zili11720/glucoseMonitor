@@ -1,5 +1,25 @@
 const newMealDataAccess = require('../dataAccess/newMealDataAccess');
 
+
+const addMeal = async (userId, foodTag, mealDate, mealType, isSpecialDay, glucoseAfterMeal, avgGlucose) => {
+  console.log("hi from model")
+  const glucoseTag="high"
+  try {
+    await newMealDataAccess.insertMeal({
+      userId:  parseInt(userId, 10),
+      foodTag,
+      mealDate,
+      mealType,
+      isSpecialDay,
+      glucoseAfterMeal,
+      avgGlucose,
+      glucoseTag
+    });
+  } catch (error) {
+    throw new Error('Error adding meal to the database');
+  }
+};
+
 /**
  * Analyzes an image and returns the primary food tag.
  * @param {string} imagePath - The path of the uploaded image.
@@ -47,4 +67,29 @@ const getUSDAglucose = async (foodTag) => {
   }
 };
 
-module.exports = { analyzeImage, getUSDAglucose};
+/**
+ * Retrieves the current day type (holiday, Hol Hamoed, or regular day).
+ * @returns {Promise<{ date: string, dayType: string }>} - A promise that resolves to the current date and day type.
+ */
+const getDateType = async (userDate) => { 
+
+  const hebcalData = await newMealDataAccess.getDateType(userDate); // העברת התאריך לגישה לנתונים
+  let dayType = "Regular Day"; // Default to "Regular Day"
+  if (hebcalData.events) {
+    const eventsCount = hebcalData.events.length;
+
+    if (eventsCount === 1 && hebcalData.events[0].includes("Parashat")) {
+      dayType = "Regular Day"; // Only "Parashat" - classified as "Regular Day"
+    } else {
+      dayType = "Holiday"; // More than one event or different events - classified as "Holiday"
+    }
+  }
+
+  return {
+    date: userDate,
+    dayType: dayType,
+  };
+};
+
+
+module.exports = { addMeal, analyzeImage, getUSDAglucose,getDateType};

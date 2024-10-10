@@ -1,31 +1,73 @@
 const newMealModel = require('../models/newMealModel');
 
-exports.analyzeImage = async (req, res) => {
+
+async function addNewMeal(req, res){
+
+    const { imageUrl, mealDate, mealType, glucoseLevel } = req.body;
+    const userId = req.session.userId;
+    console.log(userId) // Assumes user ID is stored in session
+
+     // Analyze the image to get the food tag using imagga
+     const foodTag = await analyzeImage(imageUrl);
+
+     // Fetch the glucose level based on the food tag
+     const avgGlucose = await getUSDAglucose(foodTag);
+     console.log(avgGlucose)
+
+      // Get date type from hebcal service
+      const userDate =
+        mealDate || new Date().toISOString().split("T")[0];
+        const isSpecialDay = await getDateType(userDate)
+        console.log(isSpecialDay)
+
+    // Call the model to save meal data
+    await newMealModel.addMeal(userId, foodTag, mealDate, mealType, isSpecialDay, glucoseLevel, avgGlucose);
+
+
+     res.render('pages/home', { foodTag});
+   
+};
+
+async function analyzeImage(imageUrl){
     try {
-        // Get the image URL from the form
-        const imageUrl = req.body.imageUrl;
-        
         // Call the model to analyze the image
-        const foodTag = await newMealModel.analyzeImage(imageUrl);
-        // Send the tag result to the EJS page
-        res.render('pages/home', { foodTag });
+        return await newMealModel.analyzeImage(imageUrl);
 
     } catch (error) {
         console.error('Error analyzing image:', error);
         res.status(500).send('Error analyzing the image');
     }
 };
-exports.getUSDAglucose = async (foodTag) => { // Change to accept foodTag directly
-    try {
-        
-        let foodTag ="pasta"
-        // Call the model to get the glucose level
 
-        const glucoseLevel = await newMealModel.getUSDAglucose(foodTag);
+async function getUSDAglucose(foodTag){ // Change to accept foodTag directly
+    try {
+       return await newMealModel.getUSDAglucose(foodTag);
         //console.log(glucoseLevel)
-        
+
     } catch (error) {
         console.error('Error fetching glucose level:', error);
         throw error; // Rethrow the error for the analyzeImage function to handle
     }
 };
+
+async function getDateType(userDate){
+    try {
+     
+      // Call the date model with the user's date
+      const { date, dayType } = await newMealModel.getDateType(userDate);
+      if(dayType=="Holiday"){
+        return "yes"
+      }
+      else{
+        return "no"
+      }
+    } catch (error) {
+      console.error("Error fetching day type:", error);
+      res.status(500).send("Error fetching day type");
+    }
+};
+
+module.exports = {
+    addNewMeal,analyzeImage,getUSDAglucose,getDateType
+  };
+  
