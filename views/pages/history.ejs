@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="he">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Meals History</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  </head>
+  <body>
+    <h1>היסטוריית ארוחות</h1>
+
+    <!-- טופס בחירת תאריכים -->
+    <form method="GET" action="/mealsHistory">
+      <label for="startDate">תאריך התחלה:</label>
+      <input type="date" id="startDate" name="startDate" required />
+
+      <label for="endDate">תאריך סיום:</label>
+      <input type="date" id="endDate" name="endDate" required />
+
+      <button type="submit">סנן</button>
+    </form>
+
+    <!-- גרף -->
+    <canvas id="mealsChart" width="400" height="200"></canvas>
+
+    <!-- העברת הנתונים מהשרת -->
+    <script>
+      window.mealsData = JSON.parse("<%= JSON.stringify(meals) %>");
+    </script>
+    <script src="/js/mealsHistory.js"></script>
+  </body>
+</html>
