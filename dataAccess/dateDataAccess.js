@@ -14,23 +14,9 @@ const getDateType = async (userDate) => {
     );
     console.log("Hebcal API response:", response.data); // Log the API response
 
-    const hebcalData = response.data;
+    return response.data;
 
-    let dayType = "Regular Day"; // Default to "Regular Day"
-    if (hebcalData.events) {
-      const eventsCount = hebcalData.events.length;
-
-      if (eventsCount === 1 && hebcalData.events[0].includes("Parashat")) {
-        dayType = "Regular Day"; // Only "Parashat" - classified as "Regular Day"
-      } else {
-        dayType = "Holiday"; // More than one event or different events - classified as "Holiday"
-      }
-    }
-
-    return {
-      date: userDate,
-      dayType: dayType,
-    };
+   
   } catch (error) {
     console.error("Error fetching day type from Hebcal:", error);
     throw new Error("Failed to fetch day type");
