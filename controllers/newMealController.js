@@ -4,8 +4,7 @@ const newMealModel = require('../models/newMealModel');
 async function addNewMeal(req, res){
 
     const { imageUrl, mealDate, mealType, glucoseLevel } = req.body;
-    const userId = req.session.userId;
-    console.log(userId) // Assumes user ID is stored in session
+    const userId = req.session.userId;//Get current user id from id session
 
      // Analyze the image to get the food tag using imagga
      const foodTag = await analyzeImage(imageUrl);
@@ -39,14 +38,13 @@ async function analyzeImage(imageUrl){
     }
 };
 
-async function getUSDAglucose(foodTag){ // Change to accept foodTag directly
+async function getUSDAglucose(foodTag){ 
     try {
        return await newMealModel.getUSDAglucose(foodTag);
-        //console.log(glucoseLevel)
 
     } catch (error) {
         console.error('Error fetching glucose level:', error);
-        throw error; // Rethrow the error for the analyzeImage function to handle
+        throw error;
     }
 };
 

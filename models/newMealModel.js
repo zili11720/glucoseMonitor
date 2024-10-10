@@ -2,8 +2,16 @@ const newMealDataAccess = require('../dataAccess/newMealDataAccess');
 
 
 const addMeal = async (userId, foodTag, mealDate, mealType, isSpecialDay, glucoseAfterMeal, avgGlucose) => {
-  console.log("hi from model")
-  const glucoseTag="high"
+ 
+  let glucoseTag = "high"; 
+
+if (glucoseAfterMeal > 140) {
+    glucoseTag = "high";
+} else if (glucoseAfterMeal < 72) {
+    glucoseTag = "low";
+}
+
+
   try {
     await newMealDataAccess.insertMeal({
       userId:  parseInt(userId, 10),

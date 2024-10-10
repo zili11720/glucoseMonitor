@@ -9,7 +9,7 @@ const insertMeal = async (mealData) => {
     try {
       const pool = await sql.connect(dbConfig);
   
-     // Print the values being inserted for debugging
+    // Print the values being inserted for debugging
       console.log("Inserting meal data:", {
         userId: mealData.userId,
         description: mealData.foodTag,
@@ -42,12 +42,6 @@ const insertMeal = async (mealData) => {
       console.error('Database insertion error:', error);
       throw error;
     }
-
-   /* const query = `
-    INSERT INTO Meals (user_id, description, meal_date, meal_type, is_special_day, glucose_after_meal, avg_glucose, glucose_tag)
-    VALUES(3, 'salad', '2024-10-06 00:00:00', 'breakfast', 'no', 120, 115, 'average')
-  `;*/
-
   };
   
 // Imagga API credentials
