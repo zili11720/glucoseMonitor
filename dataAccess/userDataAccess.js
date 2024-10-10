@@ -8,10 +8,8 @@ async function checkUserCredentials(username, password) {
       
       const query = `SELECT * FROM Users WHERE name = '${username}' AND password = '${password}' `;
   
-     const result = await sql.query(query);
+      return await sql.query(query);
 
-      // Return true if user exists, otherwise false
-      return result.recordset.length > 0;
     } catch (err) {
       console.error('Error accessing DB:', err);
       throw err;

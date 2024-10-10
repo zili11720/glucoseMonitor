@@ -22,10 +22,8 @@ exports.getUSDAglucose = async (foodTag) => { // Change to accept foodTag direct
         // Call the model to get the glucose level
 
         const glucoseLevel = await newMealModel.getUSDAglucose(foodTag);
-        console.log(glucoseLevel)
-
-        // Return the glucose level
-       // return glucoseLevel; // Return glucose level instead of sending a response
+        //console.log(glucoseLevel)
+        
     } catch (error) {
         console.error('Error fetching glucose level:', error);
         throw error; // Rethrow the error for the analyzeImage function to handle
