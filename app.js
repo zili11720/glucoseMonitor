@@ -1,9 +1,8 @@
 const express = require("express");
 const session = require("express-session"); //A session for managing user account- access to user's id after login
 const userRouter = require("./routes/userRoutes"); // User-related routes
-const newMealRouter = require("./routes/newMealRoutes"); // Uploaded user's picture-related routes
-const dateRoutes = require("./routes/dateRoutes"); // Date-related routes (including holiday API integration)
-const mealsHistoryRoutes = require("./routes/mealsHistoryRoutes");
+const newMealRouter = require("./routes/newMealRoutes"); // Add a user'snew meal routes
+//const mealsHistoryRoutes = require("./routes/mealsHistoryRoutes");
 
 const app = express();
 const port = 3000;
@@ -29,8 +28,7 @@ app.get("/", (req, res) => {
 // Routes
 app.use("/", userRouter); // User routes accessible from root URL
 app.use("/home", newMealRouter); // Picture routes accessible from /home
-app.use("/home", dateRoutes); // Specific date routes
-app.use("/", mealsHistoryRoutes);
+//app.use("/", mealsHistoryRoutes);
 // Error handling for 404
 app.use((req, res, next) => {
   res.status(404).send("Sorry, can't find that!");

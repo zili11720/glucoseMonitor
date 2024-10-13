@@ -14,12 +14,11 @@
         <!-- Image URL Input Form -->
         <h3>Enter the URL of your meal picture</h3>
         
-        <form id="urlForm" action="/home/addNewMeal" method="POST">
-          <!-- Image URL -->
-          <div class="form-group">
-            <label for="imageUrl">Image URL:</label>
-            <input type="url" id="imageUrl" name="imageUrl" placeholder="https://example.com/image.jpg" required>
+        <form id="uploadForm" action="/home/addNewMeal" method="POST" enctype="multipart/form-data">
+          <div class="upload-square" onclick="document.getElementById('imageUpload').click();">
+              <span id="upload-text">Click to upload</span>
           </div>
+          <input type="file" id="imageUpload" name="imageFile" accept="image/*" required style="display:none;">
 
           <!-- Date Picker -->
           <div class="form-group">
@@ -49,6 +48,13 @@
             <button type="submit">Analyze Image</button>
           </div>
         </form>
+
+        <script>
+          document.getElementById('imageUpload').addEventListener('change', function() {
+              const fileName = this.files[0].name;
+              document.getElementById('upload-text').textContent = fileName;
+          });
+      </script>
 
         <!-- Display the analyzed food tag -->
         <% if (typeof foodTag !== 'undefined') { %>

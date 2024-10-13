@@ -3,9 +3,7 @@ const newMealController = require('../controllers/newMealController');
 
 const router = express.Router();
 
-
-
-router.post('/addNewMeal', newMealController.addNewMeal);
+router.post('/addNewMeal',  newMealController.upload.single('imageFile'),newMealController.addNewMeal);
 
 
 

@@ -1,4 +1,6 @@
 const newMealModel = require('../models/newMealModel');
+const multer = require('multer');
+const path = require('path');
 
 
 async function addNewMeal(req, res){
@@ -6,8 +8,12 @@ async function addNewMeal(req, res){
     const { imageUrl, mealDate, mealType, glucoseLevel } = req.body;
     const userId = req.session.userId;//Get current user id from id session
 
+
+    if (!req.file) {
+      return res.status(400).send('No file uploaded.');
+    }
      // Analyze the image to get the food tag using imagga
-     const foodTag = await analyzeImage(imageUrl);
+     const foodTag = await analyzeImage(req.file.path);
 
      // Fetch the glucose level based on the food tag
      const avgGlucose = await getUSDAglucose(foodTag);
@@ -27,16 +33,34 @@ async function addNewMeal(req, res){
    
 };
 
-async function analyzeImage(imageUrl){
-    try {
-        // Call the model to analyze the image
-        return await newMealModel.analyzeImage(imageUrl);
+// Configure multer storage
+const storage = multer.diskStorage({
+    destination: (req, file, cb) => {
+      cb(null, 'uploads/'); // Ensure this directory exists
+    },
+    filename: (req, file, cb) => {
+      cb(null, Date.now() + path.extname(file.originalname)); // Ensure file extension is added
+    }
+  });
 
+const upload = multer({ storage: storage,
+    limits: { fileSize: 1024 * 1024 * 5 }, // 5 MB file size limit
+ });
+
+async function analyzeImage(imageFilePath) {
+    console.log("hi")
+    try {
+        console.log(imageFilePath)
+        const foodTag = await newMealModel.analyzeImage(imageFilePath);
+       return foodTag
+    
     } catch (error) {
         console.error('Error analyzing image:', error);
-        res.status(500).send('Error analyzing the image');
+        throw error
     }
 };
+
+
 
 async function getUSDAglucose(foodTag){ 
     try {
@@ -61,11 +85,11 @@ async function getDateType(userDate){
       }
     } catch (error) {
       console.error("Error fetching day type:", error);
-      res.status(500).send("Error fetching day type");
+     throw error
     }
 };
 
 module.exports = {
-    addNewMeal,analyzeImage,getUSDAglucose,getDateType
+    addNewMeal,analyzeImage,getUSDAglucose,getDateType, upload
   };
   

@@ -1,6 +1,7 @@
 const axios = require('axios');
 const fs = require('fs');
 const sql = require('mssql');
+const FormData = require('form-data');
 const { dbConfig } = require('../config');
 
 
@@ -56,19 +57,25 @@ const endpoint ='https://api.imagga.com/v2/tags';
  * @returns {Promise<Array>} - A promise that resolves to an array of food tags.
  */
 const analyzeImage = async (imagePath) => {
-  try {
-    const response = await axios.get(endpoint, {
-        params: { image_url: imagePath },
-        auth: {
-            username:  API_KEY,
-            password: API_SECRET,
+    try {
+      const form = new FormData();
+      form.append('image', fs.createReadStream(imagePath)); // Upload the image as a file stream
+  
+      const response = await axios.post(endpoint, form, {
+        headers: {
+          ...form.getHeaders(),
         },
-    });
-    return response.data.result.tags;
-} catch (error) {
-    console.error('Error fetching tags:', error);
-}
-};
+        auth: {
+          username: API_KEY,
+          password: API_SECRET,
+        },
+      });
+  
+      return response.data.result.tags;
+    } catch (error) {
+      console.error('Error fetching tags:', error);
+    }
+  };
 
 const getUSDAglucose = async (foodTag) => {
     const apiKey = 'ADb3Bwhl88Im15E6P0fu320AkpSFaXZkw6gaZBil';
