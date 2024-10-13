@@ -16,6 +16,27 @@ async function validateUser(username, password) {
   }
 }
 
+async function getUserByEmail(email) {
+  try {
+    const userData = await userDataAccess.getUserByEmail(email);
+    return userData.recordset.length > 0 ? userData.recordset[0] : null;
+  } catch (err) {
+    throw new Error('Error fetching user by email: ' + err.message);
+  }
+}
+
+async function createUser(name, password, date_of_birth, weight, email) {
+  try {
+    await userDataAccess.insertUser(name, password, date_of_birth, weight, email);
+  } catch (err) {
+    throw new Error('Error creating user: ' + err.message);
+  }
+}
+
 module.exports = {
-  validateUser
+  validateUser,
+  getUserByEmail,
+  createUser
 };
+
+

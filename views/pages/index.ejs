@@ -29,17 +29,66 @@
     <div class="inner">
         <header class="major">
 			<h2>About Us</h2><br />
-            <h2>Arcu aliquet vel lobortis ata nisl<br />
-            eget augue amet aliquet nisl cep donec</h2>
-            <p>Aliquam ut ex ut augue consectetur interdum. Donec amet imperdiet eleifend<br />
-            fringilla tincidunt. Nullam dui leo Aenean mi ligula, rhoncus ullamcorper.</p>
+            <h2>At GlucoseMonitor, we help users track their <br />
+                health by analyzing meal images and glucose levels.</h2>
+            <p>Our system provides insights into food choices, average sugar levels,<br />
+             and predicts future glucose trends for better health management.</p>
         </header>
         <ul class="icons major">
-            <li><span class="icon fa-gem major style1"><span class="label">Lorem</span></span></li>
+            <li><span class="icon solid fa-laptop major style1"><span class="label">Lorem</span></span></li>
             <li><span class="icon fa-heart major style2"><span class="label">Ipsum</span></span></li>
             <li><span class="icon solid fa-code major style3"><span class="label">Dolor</span></span></li>
         </ul>
     </div>
 </section>
+
+<!-- Two -->
+<section id="two" class="wrapper alt style2">
+    <section class="spotlight">
+        <div class="image"><img src="images/pic01.jpg" alt="" /></div><div class="content">
+            <h2>Apload an image <br />
+            of your meal</h2>
+            <p>Aliquam ut ex ut augue consectetur interdum. Donec hendrerit imperdiet. Mauris eleifend fringilla nullam aenean mi ligula.</p>
+        </div>
+    </section>
+    <section class="spotlight">
+        <div class="image"><img src="images/pic02.jpg" alt="" /></div><div class="content">
+            <h2>update glucose levels <br />
+            two hours later</h2>
+            <p>Aliquam ut ex ut augue consectetur interdum. Donec hendrerit imperdiet. Mauris eleifend fringilla nullam aenean mi ligula.</p>
+        </div>
+    </section>
+    <section class="spotlight">
+        <div class="image"><img src="images/pic03.jpg" alt="" /></div><div class="content">
+            <h2>Get
+             </h2>
+            <p style="color: white;"> food analysis,past meals and glucose levels history <br />
+                and our doctor's private consultation </p>
+        </div>
+    </section>
+</section>
+
+<!-- CTA -->
+<section id="cta" class="wrapper style4">
+    <div class="inner">
+        <header>
+            <h2>Join us now</h2>
+            <p>Become a part of our community<br />
+                 in a few seconds</p>
+        </header>
+        <ul class="actions stacked">
+            <li><a href="/signUpForm" class="button fit primary">Sign up</a></li>
+            <li><a href="#" class="button fit">Contact us</a></li>
+        </ul>
+    </div>
+</section>
+
+<!-- Check if there's an alertMessage and display it as a pop-up -->
+<% if (typeof alertMessage !== 'undefined') { %>
+    <script>
+      alert("<%= alertMessage %>");
+    </script>
+  <% } %>
+
 
 <%- include('../partials/footer') %>

@@ -1,9 +1,16 @@
 const express = require('express');
 const router = express.Router();
-const loginController = require('../controllers/userController.js');
+const userController = require('../controllers/userController.js');
 
 // Route for login post
-router.post('/login', loginController.login);
+router.post('/login', userController.login);
+
+router.get('/signUpForm', (req, res) => {
+    res.render('pages/signUp');  // Render the signUp.ejs file
+});
+
+// Route for sign-up post
+router.post('/signUp', userController.signUp);
 
 router.get('/home', (req, res) => {
     res.render('pages/home');  // Render the home page
