@@ -1,9 +1,8 @@
-// routes.js or app.js
 const express = require("express");
 const router = express.Router();
-const mealController = require("../controllers/mealsHistoryController");
+const mealsHistoryController = require("../controllers/mealsHistoryController");
 
-// Route for mealsHistory page
-router.get("/mealsHistory", mealsHistoryController.mealsHistoryPage);
+// Route for fetching meals history within a date range
+router.get("/mealsHistory", mealsHistoryController.getMealsHistory);
 
 module.exports = router;

@@ -1,32 +1,61 @@
 <!DOCTYPE html>
-<html lang="he">
+<html>
+  <%- include('../partials/head') %> <%- include('../partials/header') %>
   <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Meals History</title>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   </head>
   <body>
-    <h1>היסטוריית ארוחות</h1>
+    <h1>Meals History</h1>
 
-    <!-- טופס בחירת תאריכים -->
     <form method="GET" action="/mealsHistory">
-      <label for="startDate">תאריך התחלה:</label>
+      <label for="startDate">Start Date:</label>
       <input type="date" id="startDate" name="startDate" required />
 
-      <label for="endDate">תאריך סיום:</label>
+      <label for="endDate">End Date:</label>
       <input type="date" id="endDate" name="endDate" required />
 
-      <button type="submit">סנן</button>
+      <button type="submit">Show Graph</button>
     </form>
 
-    <!-- גרף -->
-    <canvas id="mealsChart" width="400" height="200"></canvas>
+    <canvas id="mealsHistoryChart" width="400" height="200"></canvas>
 
-    <!-- העברת הנתונים מהשרת -->
     <script>
-      window.mealsData = JSON.parse("<%= JSON.stringify(meals) %>");
+      // העברת נתונים מהשרת לצד הלקוח
+      //const mealsData = <%- JSON.stringify(mealsData) %>;
+
+      // יצירת הגרף
+      const ctx = document.getElementById("mealsHistoryChart").getContext("2d");
+      const labels = mealsData.map((meal) => meal.meal_date);
+      const data = mealsData.map((meal) => meal.glucose_after_meal);
+
+      const chart = new Chart(ctx, {
+        type: "line",
+        data: {
+          labels: labels,
+          datasets: [
+            {
+              label: "Glucose After Meal",
+              data: data,
+              borderColor: "rgba(75, 192, 192, 1)",
+              borderWidth: 2,
+            },
+          ],
+        },
+        options: {
+          scales: {
+            x: {
+              type: "time",
+              time: {
+                unit: "day",
+              },
+            },
+            y: {
+              beginAtZero: true,
+            },
+          },
+        },
+      });
     </script>
-    <script src="/js/mealsHistory.js"></script>
   </body>
 </html>
