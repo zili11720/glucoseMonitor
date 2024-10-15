@@ -4117,22 +4117,7 @@ input, select, textarea {
 	height: 100px; /* Smaller textarea */
   }
   
-  /* Submit Button Styling */
-  .submit-button {
-	background-color: #5c8aff; /* Light blue background */
-	color: #fff;
-	border: none;
-	padding: 0.75em 1.5em;
-	border-radius: 5px; /* Slightly rounded button */
-	cursor: pointer;
-	font-size: 0.9em; /* Smaller button text */
-	transition: background-color 0.3s ease;
-	width: 100%;
-  }
-  
-  .submit-button:hover {
-	background-color: #466eb8; /* Darker blue on hover */
-  }
+
   
   /* Add spacing between form and footer */
   .wrapper {
@@ -4150,6 +4135,11 @@ input, select, textarea {
 	  padding: 0.6em;
 	}
   }
+
+  .white-text {
+    color: #ffffff !important; /* Sets the text color to white */
+}
+
 
  
   
