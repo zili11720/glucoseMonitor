@@ -20,5 +20,9 @@ router.get('/contact', (req, res) => {
     res.render('pages/contact');  //  זה כאן זמניתץ להעיף את זה מכאן אחכ
 });
 
+router.get('/history', (req, res) => {
+    res.render('pages/history',{ mealsData: null });  //  זה כאן זמניתץ להעיף את זה מכאן אחכ
+});
+
 
 module.exports = router;

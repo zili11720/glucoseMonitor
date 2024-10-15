@@ -4140,6 +4140,54 @@ input, select, textarea {
     color: #ffffff !important; /* Sets the text color to white */
 }
 
+/* Style for the meal day squares */
+.meal-squares {
+	display: flex;
+	overflow-x: auto;
+	padding: 10px;
+	gap: 20px;
+  }
+  
+  .meal-day {
+	background-color: #f9f9f9;
+	border: 1px solid #ccc;
+	border-radius: 10px;
+	padding: 15px;
+	min-width: 200px;
+  }
+  
+  .meal-day h3 {
+	font-size: 1.2em;
+	margin-bottom: 10px;
+  }
+  
+  /* Style for the date picker form */
+  form {
+	margin-bottom: 30px;
+  }
+  
+  form label {
+	margin-right: 10px;
+  }
+  
+  form input {
+	margin-right: 20px;
+  }
+  
+  button {
+	padding: 5px 15px;
+	background-color: #4CAF50;
+	color: white;
+	border: none;
+	border-radius: 5px;
+	cursor: pointer;
+  }
+  
+  button:hover {
+	background-color: #45a049;
+  }
+  
+
 
  
   

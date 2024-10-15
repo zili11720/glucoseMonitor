@@ -1,61 +1,55 @@
-<!DOCTYPE html>
+<!DOCTYPE HTML>
 <html>
-  <%- include('../partials/head') %> <%- include('../partials/header') %>
-  <head>
-    <title>Meals History</title>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-  </head>
-  <body>
-    <h1>Meals History</h1>
+  <%- include('../partials/head') %>
+  <%- include('../partials/header') %>
 
-    <form method="GET" action="/mealsHistory">
-      <label for="startDate">Start Date:</label>
-      <input type="date" id="startDate" name="startDate" required />
+  <!-- Main -->
+  <article id="main">
+    <header>
+      <h2>Meals History</h2>
+      <p class="white-text">Select a date range to view your meal history:</p>
+    </header>
 
-      <label for="endDate">End Date:</label>
-      <input type="date" id="endDate" name="endDate" required />
+    <section class="wrapper style5">
+      <div class="inner">
+        
+        <!-- Date Picker Section -->
+        <form action="/home/mealsHistory" method="GET">
+          <label for="startDate">Start Date:</label>
+          <input type="date" name="startDate" required>
+          
+          <label for="endDate">End Date:</label>
+          <input type="date" name="endDate" required>
+          
+          <button type="submit">Get Meals</button>
+        </form>
 
-      <button type="submit">Show Graph</button>
-    </form>
+        <!-- If mealsData is not present, show only the date picker form -->
+        <% if (!mealsData) { %>
+          <p>Please select a date range to view your meal history.</p>
+        <% } else { %>
 
-    <canvas id="mealsHistoryChart" width="400" height="200"></canvas>
+          <!-- Graph Placeholder (You'll add the graph logic here) -->
+          <div id="meal-history-graph"></div>
 
-    <script>
-      // העברת נתונים מהשרת לצד הלקוח
-      //const mealsData = <%- JSON.stringify(mealsData) %>;
+          <!-- Scrollable Meal Squares -->
+          <div class="meal-squares">
+            <% mealsData.forEach(day => { %>
+              <div class="meal-day">
+                <h3><%= day.meal_date %></h3>
+                <% day.meals.forEach(meal => { %>
+                  <p><strong>Meal Type:</strong> <%= meal.meal_type %></p>
+                  <p><strong>Description:</strong> <%= meal.description %></p>
+                  <p><strong>Glucose After Meal:</strong> <%= meal.glucose_after_meal %></p>
+                <% }) %>
+              </div>
+            <% }) %>
+          </div>
 
-      // יצירת הגרף
-      const ctx = document.getElementById("mealsHistoryChart").getContext("2d");
-      const labels = mealsData.map((meal) => meal.meal_date);
-      const data = mealsData.map((meal) => meal.glucose_after_meal);
+        <% } %>
+      </div>
+    </section>
+  </article>
 
-      const chart = new Chart(ctx, {
-        type: "line",
-        data: {
-          labels: labels,
-          datasets: [
-            {
-              label: "Glucose After Meal",
-              data: data,
-              borderColor: "rgba(75, 192, 192, 1)",
-              borderWidth: 2,
-            },
-          ],
-        },
-        options: {
-          scales: {
-            x: {
-              type: "time",
-              time: {
-                unit: "day",
-              },
-            },
-            y: {
-              beginAtZero: true,
-            },
-          },
-        },
-      });
-    </script>
-  </body>
+  <%- include('../partials/footer') %>
 </html>
