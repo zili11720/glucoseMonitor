@@ -59,45 +59,5 @@ const isFoodImage = (tags) => {
   return tags.some(tag => foodKeywords.includes(tag.tag.en.toLowerCase()));
 };
 
-// Get USDA glucose level (new function)
-const getUSDAglucose = async (foodTag) => {
-  
-  try {
-    const foodData = await newMealDataAccess.getUSDAglucose(foodTag);
-      
-    // Find total sugars from the food's nutrients
-    const totalSugars = foodData.foodNutrients.find(nutrient => nutrient.nutrientName.toLowerCase() === 'total sugars');
-    // Return total sugars if found, else return null
-    return totalSugars ? totalSugars.value : null;
-  } catch (error) {
-      console.error('Error fetching glucose data:', error);
-      throw error;
-  }
-};
 
-/**
- * Retrieves the current day type (holiday, Hol Hamoed, or regular day).
- * @returns {Promise<{ date: string, dayType: string }>} - A promise that resolves to the current date and day type.
- */
-const getDateType = async (userDate) => { 
-
-  const hebcalData = await newMealDataAccess.getDateType(userDate); // העברת התאריך לגישה לנתונים
-  let dayType = "Regular Day"; // Default to "Regular Day"
-  if (hebcalData.events) {
-    const eventsCount = hebcalData.events.length;
-
-    if (eventsCount === 1 && hebcalData.events[0].includes("Parashat")) {
-      dayType = "Regular Day"; // Only "Parashat" - classified as "Regular Day"
-    } else {
-      dayType = "Holiday"; // More than one event or different events - classified as "Holiday"
-    }
-  }
-
-  return {
-    date: userDate,
-    dayType: dayType,
-  };
-};
-
-
-module.exports = { addMeal, analyzeImage, getUSDAglucose,getDateType};
+module.exports = { addMeal, analyzeImage};

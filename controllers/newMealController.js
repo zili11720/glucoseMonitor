@@ -1,11 +1,13 @@
 const newMealModel = require('../models/newMealModel');
+const USDAmodel = require('../models/USDAmodel');
+const dateModel = require('../models/dateModel');
 const multer = require('multer');
 const path = require('path');
 
 
 async function addNewMeal(req, res){
 
-    const { imageUrl, mealDate, mealType, glucoseLevel } = req.body;
+    const { mealDate, mealType, glucoseLevel } = req.body;
     const userId = req.session.userId;//Get current user id from id session
 
 
@@ -25,8 +27,10 @@ async function addNewMeal(req, res){
         const isSpecialDay = await getDateType(userDate)
         console.log(isSpecialDay)
 
+        console.log("foodTag:", foodTag)
     // Call the model to save meal data
-    await newMealModel.addMeal(userId, foodTag, mealDate, mealType, isSpecialDay, glucoseLevel, avgGlucose);
+    if (foodTag !== 'Unknown food')
+         await newMealModel.addMeal(userId, foodTag, mealDate, mealType, isSpecialDay, glucoseLevel, avgGlucose);
 
 
      res.render('pages/home', { foodTag});
@@ -64,7 +68,7 @@ async function analyzeImage(imageFilePath) {
 
 async function getUSDAglucose(foodTag){ 
     try {
-       return await newMealModel.getUSDAglucose(foodTag);
+       return await USDAmodel.getUSDAglucose(foodTag);
 
     } catch (error) {
         console.error('Error fetching glucose level:', error);
@@ -76,7 +80,7 @@ async function getDateType(userDate){
     try {
      
       // Call the date model with the user's date
-      const { date, dayType } = await newMealModel.getDateType(userDate);
+      const { date, dayType } = await dateModel.getDateType(userDate);
       if(dayType=="Holiday"){
         return "yes"
       }

@@ -1,0 +1,54 @@
+<!DOCTYPE HTML>
+<html>
+  <%- include('../partials/head') %>
+  <%- include('../partials/header') %>
+
+  <!-- Main -->
+  <article id="main">
+    <header>
+      <h2>Predict your next glucose level</h2>
+      <p class="white-text">Please enter your expected meal:</p>
+    </header>
+    <section class="wrapper style5">
+      <div class="inner">
+        
+        <form id="uploadForm" action="/home/predict" method="POST">
+          <!-- Meal Type Dropdown -->
+          <div class="form-group">
+            <label for="mealType">Meal Type:</label>
+            <select id="mealType" name="mealType" required>
+              <option value="" disabled selected>Choose a meal type</option>
+              <option value="breakfast">Breakfast</option>
+              <option value="lunch">Lunch</option>
+              <option value="dinner">Dinner</option>
+            </select>
+          </div>
+          <!-- Meal Description Textbox -->
+          <div class="form-group">
+            <label for="mealDescription">Meal Description:</label>
+            <input type="text" id="mealDescription" name="mealDescription" placeholder="Enter meal description" required>
+          </div>
+            <!-- Date Picker -->
+          <div class="form-group">
+            <label for="mealDate">Select the Meal Date:</label>
+            <input type="date" id="mealDate" name="mealDate" required>
+          </div>
+          <!-- Submit Button -->
+          <div class="form-group">
+            <button type="submit">Analyze Glucose</button>
+          </div>
+        </form>
+
+         <!-- Dynamic Predicted Glucose Tag Result -->
+         <% if (typeof predictedGlucoseTag !== 'undefined') { %>
+            <div class="form-group">
+              <h3>Predicted Glucose Level: <span><%= predictedGlucoseTag %></span></h3>
+            </div>
+            <% } %>
+         </div>
+    </section>
+  </article>
+
+  <%- include('../partials/footer') %>
+</body>
+</html>

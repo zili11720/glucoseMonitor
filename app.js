@@ -3,6 +3,7 @@ const session = require("express-session"); //A session for managing user accoun
 const userRouter = require("./routes/userRoutes"); // User-related routes
 const newMealRouter = require("./routes/newMealRoutes"); // Add a users new meal routes
 const mealsHistoryRoutes = require("./routes/mealsHistoryRoutes");
+const predictionRoutes = require("./routes/predictionRoutes.js");
 
 const app = express();
 const port = 3000;
@@ -29,6 +30,7 @@ app.get("/", (req, res) => {
 app.use("/", userRouter); // User routes accessible from root URL
 app.use("/home", newMealRouter); // Picture routes accessible from /home
 app.use("/home", mealsHistoryRoutes);
+app.use("/home", predictionRoutes);
 
 // Error handling for 404
 app.use((req, res, next) => {
