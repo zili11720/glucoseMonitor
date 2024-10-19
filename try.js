@@ -1,85 +1,51 @@
-const { DecisionTreeClassifier } = require('ml-cart');
+const { Kafka } = require('kafkajs')
 
-// Your dataset from the database
-const data = [
-    { meal_type: 'breakfast', avg_glucose: 115, is_special_day: 'no', glucose_tag: 'average' },
-    { meal_type: 'dinner', avg_glucose: 170, is_special_day: 'yes', glucose_tag: 'high' },
-    { meal_type: 'lunch', avg_glucose: 90, is_special_day: 'no', glucose_tag: 'low' },
-    { meal_type: 'dinner', avg_glucose: 130, is_special_day: 'no', glucose_tag: 'high' },
-    { meal_type: 'breakfast', avg_glucose: 105, is_special_day: 'yes', glucose_tag: 'low' },
-];
+// Replace the following with your Redpanda cluster's connection details
+const kafka = new Kafka({
+  clientId: 'my-app',
+  brokers: ['cs9vj7hnu57hk0e3t22g.any.eu-central-1.mpx.prd.cloud.redpanda.com:9092'], // e.g., 'your-cluster-url:9092'
+  ssl: {},                       // if SSL is required by Redpanda
+  sasl: {                           // if SASL authentication is required
+    mechanism: 'scram-sha-256',        
+    username: 'Zili',
+    password: 'sZeWm6Hffw5PwlWekB9HtVXphp8X8v',
+  }
+})
 
-// Feature names and labels
-const features = ['meal_type', 'avg_glucose', 'is_special_day'];
+// Create a producer
+const producer = kafka.producer()
 
-// Convert categorical data into numerical values
-const encodeMealType = (mealType) => {
-    switch (mealType) {
-        case 'breakfast': return 0;
-        case 'lunch': return 1;
-        case 'dinner': return 2;
-        default: return -1;
-    }
-};
+// Create a consumer
+const consumer = kafka.consumer({ groupId: 'test-group' })
 
-const encodeSpecialDay = (isSpecialDay) => (isSpecialDay === 'yes' ? 1 : 0);
+// Produce a message
+const runProducer = async () => {
+  await producer.connect()
+  await producer.send({
+    topic: 'hello-world',    // Use your actual topic name
+    messages: [
+      { value: 'Hello Redpanda!' },
+    ],
+  })
+  await producer.disconnect()
+}
 
-// Encode glucose tags into numerical values
-const encodeGlucoseTag = (tag) => {
-    switch (tag) {
-        case 'low': return 0;
-        case 'average': return 1;
-        case 'high': return 2;
-        default: return -1;
-    }
-};
+// Consume messages
+const runConsumer = async () => {
+  await consumer.connect()
+  await consumer.subscribe({ topic: 'hello-world', fromBeginning: true })
 
-// Decode glucose tag back into its original form
-const decodeGlucoseTag = (tag) => {
-    switch (tag) {
-        case 0: return 'low';
-        case 1: return 'average';
-        case 2: return 'high';
-        default: return 'unknown';
-    }
-};
+  await consumer.run({
+    eachMessage: async ({ topic, partition, message }) => {
+      console.log({
+        partition,
+        offset: message.offset,
+        value: message.value.toString(),
+      })
+    },
+  })
+}
 
-// Prepare the feature data and encoded labels
-const trainingData = data.map(row => [
-    encodeMealType(row.meal_type),
-    row.avg_glucose,
-    encodeSpecialDay(row.is_special_day)
-]);
-
-const labels = data.map(row => encodeGlucoseTag(row.glucose_tag));
-
-// Train the decision tree classifier
-const decisionTree = new DecisionTreeClassifier({ gainFunction: 'gini', minNumSamples: 3, maxDepth: 10 });
-decisionTree.train(trainingData, labels);
-
-// Function to predict glucose level based on new input
-const predictGlucoseLevel = (meal_type,avg_glucose, is_special_day) => {
-    const input = [
-        encodeMealType(meal_type),
-        avg_glucose,
-        encodeSpecialDay(is_special_day)
-    ];
-    const encodedPrediction = decisionTree.predict([input]); // Pass the input as a 2D array
-    return decodeGlucoseTag(encodedPrediction[0]); // Decode the prediction
-};
-
-// Example of making a prediction
-const newMeal = {
-    meal_type: 'dinner',
-   // glucose_after_meal:,
-    avg_glucose: 140,
-    is_special_day: 'yes'
-};
-
-const predictedGlucoseTag = predictGlucoseLevel(
-    newMeal.meal_type,
-    newMeal.avg_glucose,
-    newMeal.is_special_day
-);
-
-console.log(`Predicted glucose tag: ${predictedGlucoseTag}`);
+// Run both producer and consumer
+runProducer().catch(console.error)
+runConsumer().catch(console.error)
