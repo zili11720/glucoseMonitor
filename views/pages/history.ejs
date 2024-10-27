@@ -1,9 +1,7 @@
-<!DOCTYPE HTML>
+<!DOCTYPE html>
 <html>
-  <%- include('../partials/head') %>
-  <%- include('../partials/header') %>
+  <%- include('../partials/head') %> <%- include('../partials/header') %>
 
-  <!-- Main -->
   <article id="main">
     <header>
       <h2>Meals History</h2>
@@ -12,40 +10,50 @@
 
     <section class="wrapper style5">
       <div class="inner">
-        
         <!-- Date Picker Section -->
         <form action="/home/mealsHistory" method="GET">
           <label for="startDate">Start Date:</label>
-          <input type="date" name="startDate" required>
-          
+          <input type="date" name="startDate" required />
+
           <label for="endDate">End Date:</label>
-          <input type="date" name="endDate" required>
-          
+          <input type="date" name="endDate" required />
+
           <button type="submit">Get Meals</button>
         </form>
 
-        <!-- If mealsData is not present, show only the date picker form -->
-        <% if (!mealsData) { %>
-          <p>Please select a date range to view your meal history.</p>
-        <% } else { %>
+        <% if (mealsData && mealsData.length > 0) { %>
 
-          <!-- Graph Placeholder (You'll add the graph logic here) -->
-          <div id="meal-history-graph"></div>
+        <!-- Graph Placeholder -->
+        <div id="meal-history-graph"></div>
 
-          <!-- Scrollable Meal Squares -->
-          <div class="meal-squares">
-            <% mealsData.forEach(day => { %>
-              <div class="meal-day">
-                <h3><%= day.meal_date %></h3>
-                <% day.meals.forEach(meal => { %>
-                  <p><strong>Meal Type:</strong> <%= meal.meal_type %></p>
-                  <p><strong>Description:</strong> <%= meal.description %></p>
-                  <p><strong>Glucose After Meal:</strong> <%= meal.glucose_after_meal %></p>
-                <% }) %>
-              </div>
+        <!-- Scrollable Meal Tabs -->
+        <div class="meal-squares">
+          <% // Group meals by date and calculate daily average glucose let
+          dailyMeals = {}; mealsData.forEach(meal => { const dateKey = new
+          Date(meal.meal_date).toLocaleDateString(); if (!dailyMeals[dateKey])
+          dailyMeals[dateKey] = { meals: [], totalGlucose: 0, count: 0 };
+          dailyMeals[dateKey].meals.push(meal); dailyMeals[dateKey].totalGlucose
+          += meal.glucose_after_meal; dailyMeals[dateKey].count += 1; }); %> <%
+          Object.keys(dailyMeals).forEach(date => { %>
+          <div class="meal-day">
+            <h3>
+              <%= date %> (Avg Glucose: <%= (dailyMeals[date].totalGlucose /
+              dailyMeals[date].count).toFixed(1) %>)
+            </h3>
+            <% dailyMeals[date].meals.forEach(meal => { %>
+            <p><strong>Meal Type:</strong> <%= meal.meal_type %></p>
+            <p><strong>Description:</strong> <%= meal.description %></p>
+            <p>
+              <strong>Glucose After Meal:</strong> <%= meal.glucose_after_meal
+              %>
+            </p>
             <% }) %>
           </div>
+          <% }) %>
+        </div>
 
+        <% } else { %>
+        <p>Please select a date range to view your meal history.</p>
         <% } %>
       </div>
     </section>
