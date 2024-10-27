@@ -1,11 +1,10 @@
 const { Kafka } = require('kafkajs')
 
-// Replace the following with your Redpanda cluster's connection details
 const kafka = new Kafka({
   clientId: 'my-app',
-  brokers: ['cs9vj7hnu57hk0e3t22g.any.eu-central-1.mpx.prd.cloud.redpanda.com:9092'], // e.g., 'your-cluster-url:9092'
-  ssl: {},                       // if SSL is required by Redpanda
-  sasl: {                           // if SASL authentication is required
+  brokers: ['cs9vj7hnu57hk0e3t22g.any.eu-central-1.mpx.prd.cloud.redpanda.com:9092'], 
+  ssl: {},                      
+  sasl: {                           
     mechanism: 'scram-sha-256',        
     username: 'Zili',
     password: 'sZeWm6Hffw5PwlWekB9HtVXphp8X8v',

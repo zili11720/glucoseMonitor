@@ -12,21 +12,9 @@ router.get('/signUpForm', (req, res) => {
 // Route for sign-up post
 router.post('/signUp', userController.signUp);
 
-router.get('/home', (req, res) => {
-    res.render('pages/home');  // Render the home page
-});
 
 router.get('/contact', (req, res) => {
-    res.render('pages/contact');  //  זה כאן זמניתץ להעיף את זה מכאן אחכ
+    res.render('pages/contact');  
 });
-
-router.get('/history', (req, res) => {
-    res.render('pages/history',{ mealsData: null });  //  זה כאן זמניתץ להעיף את זה מכאן אחכ
-});
-
-router.get('/prediction', (req, res) => {
-    res.render('pages/prediction',{ mealsData: null });  //  זה כאן זמניתץ להעיף את זה מכאן אחכ
-});
-
 
 module.exports = router;

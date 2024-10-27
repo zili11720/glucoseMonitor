@@ -4,6 +4,7 @@ const userRouter = require("./routes/userRoutes"); // User-related routes
 const newMealRouter = require("./routes/newMealRoutes"); // Add a users new meal routes
 const mealsHistoryRoutes = require("./routes/mealsHistoryRoutes");
 const predictionRoutes = require("./routes/predictionRoutes.js");
+const { consumeGlucoseData } = require('./kafka/highGlucoseConsumer'); // Import the consumer
 
 const app = express();
 const port = 3000;
@@ -29,8 +30,11 @@ app.get("/", (req, res) => {
 // Routes
 app.use("/", userRouter); // User routes accessible from root URL
 app.use("/home", newMealRouter); // Picture routes accessible from /home
-app.use("/home", mealsHistoryRoutes);
-app.use("/home", predictionRoutes);
+app.use("/history", mealsHistoryRoutes);
+app.use("/prediction", predictionRoutes);
+
+// Start the Kafka consumer
+consumeGlucoseData().catch(err => console.error("Error starting Kafka consumer:", err));
 
 // Error handling for 404
 app.use((req, res, next) => {

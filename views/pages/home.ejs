@@ -11,8 +11,9 @@
     </header>
     <section class="wrapper style5">
       <div class="inner">
+        <section class="form-container">
         <!-- Image URL Input Form -->
-        <h3>Enter the URL of your meal picture</h3>
+        <label for="uploadForm">Upload a picture of your meal</label>
         
         <form id="uploadForm" action="/home/addNewMeal" method="POST" enctype="multipart/form-data">
           <div class="upload-square" onclick="document.getElementById('imageUpload').click();">
@@ -56,13 +57,42 @@
           });
       </script>
 
-        <!-- Display the analyzed food tag -->
-        <% if (typeof foodTag !== 'undefined') { %>
-          <p>Detected food: <strong><%= foodTag %></strong></p>
-        <% } %>
+        </section>
       </div>
     </section>
   </article>
+
+  <!-- Modal Popup for Detected Food -->
+  <% if (typeof foodTag !== 'undefined') { %>
+    <div id="foodTagModal" class="modal">
+      <div class="modal-content">
+        <span class="close">&times;</span>
+        <p>Meal seccessfully addad<br>
+          Detected food: <strong style="color: black;"><%= foodTag %></strong></p>
+      </div>
+    </div>
+
+    <script>
+      // Show the modal if foodTag exists
+      var modal = document.getElementById("foodTagModal");
+      var span = document.getElementsByClassName("close")[0];
+
+      // Display the modal
+      modal.style.display = "block";
+
+      // Close the modal when the 'X' is clicked
+      span.onclick = function() {
+        modal.style.display = "none";
+      }
+
+      // Close the modal when the user clicks anywhere outside of the modal
+      window.onclick = function(event) {
+        if (event.target == modal) {
+          modal.style.display = "none";
+        }
+      }
+    </script>
+  <% } %>
 
   <%- include('../partials/footer') %>
 </body>
