@@ -1,6 +1,6 @@
 const userModel = require('../models/userModel');
 
-async function login(req, res) {
+async function login(req, res,next) {
   const { username, password } = req.body;
 
   try {
@@ -8,8 +8,7 @@ async function login(req, res) {
   
     if (isValidUser) {
       req.session.userId = isValidUser.id; // Store the user ID in the session
-      // If valid, redirect to the next page 
-      res.redirect('/home');
+      next(); 
     } else {
       // If invalid, send back an error message without 
       res.render('pages/index', { alertMessage: 'Wrong username or password!' });
