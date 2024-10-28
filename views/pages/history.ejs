@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
-  <%- include('../partials/head') %> <%- include('../partials/header') %>
+  <%- include('../partials/head') %>
+  <%- include('../partials/header') %>
 
   <article id="main">
     <header>
@@ -22,31 +23,34 @@
         </form>
 
         <% if (mealsData && mealsData.length > 0) { %>
-
-        <!-- Graph Placeholder -->
-        <div id="meal-history-graph"></div>
+        
+        <!-- Graph Section -->
+        <div id="meal-history-graph-container">
+          <canvas id="mealHistoryChart"></canvas>
+        </div>
 
         <!-- Scrollable Meal Tabs -->
         <div class="meal-squares">
-          <% // Group meals by date and calculate daily average glucose let
-          dailyMeals = {}; mealsData.forEach(meal => { const dateKey = new
-          Date(meal.meal_date).toLocaleDateString(); if (!dailyMeals[dateKey])
-          dailyMeals[dateKey] = { meals: [], totalGlucose: 0, count: 0 };
-          dailyMeals[dateKey].meals.push(meal); dailyMeals[dateKey].totalGlucose
-          += meal.glucose_after_meal; dailyMeals[dateKey].count += 1; }); %> <%
-          Object.keys(dailyMeals).forEach(date => { %>
+          <% 
+          let dailyMeals = {}; 
+          mealsData.forEach(meal => {
+            const dateKey = new Date(meal.meal_date).toLocaleDateString();
+            if (!dailyMeals[dateKey]) dailyMeals[dateKey] = { meals: [], totalGlucose: 0, count: 0 };
+            dailyMeals[dateKey].meals.push(meal); 
+            dailyMeals[dateKey].totalGlucose += meal.glucose_after_meal; 
+            dailyMeals[dateKey].count += 1;
+          });
+          %> 
+
+          <% Object.keys(dailyMeals).forEach(date => { %>
           <div class="meal-day">
             <h3>
-              <%= date %> (Avg Glucose: <%= (dailyMeals[date].totalGlucose /
-              dailyMeals[date].count).toFixed(1) %>)
+              <%= date %> (Avg Glucose: <%= (dailyMeals[date].totalGlucose / dailyMeals[date].count).toFixed(1) %>)
             </h3>
             <% dailyMeals[date].meals.forEach(meal => { %>
             <p><strong>Meal Type:</strong> <%= meal.meal_type %></p>
             <p><strong>Description:</strong> <%= meal.description %></p>
-            <p>
-              <strong>Glucose After Meal:</strong> <%= meal.glucose_after_meal
-              %>
-            </p>
+            <p><strong>Glucose After Meal:</strong> <%= meal.glucose_after_meal %></p>
             <% }) %>
           </div>
           <% }) %>
@@ -60,4 +64,47 @@
   </article>
 
   <%- include('../partials/footer') %>
+
+  <!-- Chart.js CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+  <script>
+
+     // Chart data
+     const dates =JSON.stringify(dates);
+    const glucoseLevels = averageGlucoseLevels;
+
+   console.log("Dates:", dates);
+    console.log("Glucose Levels:", glucoseLevels);
+
+    // Initialize Chart.js
+    const ctx = document.getElementById('mealHistoryChart').getContext('2d');
+    new Chart(ctx, {
+      type: 'line',
+      data: {
+        labels: dates,
+        datasets: [{
+          label: 'Average Glucose Level',
+          data: glucoseLevels,
+          borderColor: 'rgba(75, 192, 192, 1)',
+          backgroundColor: 'rgba(75, 192, 192, 0.2)',
+          borderWidth: 2,
+          fill: true,
+        }]
+      },
+      options: {
+        scales: {
+          x: { title: { display: true, text: 'Date' } },
+          y: { title: { display: true, text: 'Average Glucose Level' } }
+        },
+        responsive: true,
+        plugins: {
+          legend: { display: true },
+          tooltip: { enabled: true },
+        }
+      }
+    });
+  </script>
+  
+  
 </html>

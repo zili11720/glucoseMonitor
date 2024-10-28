@@ -31,15 +31,15 @@ const processMealsData = (mealsData) => {
   });
 
   // Prepare unique dates and average glucose levels arrays
-  const uniqueDates = Object.keys(dailyGlucoseMap).sort(); // Sort dates
-  const averageGlucoseLevels = uniqueDates.map((date) => {
+  const dates = Object.keys(dailyGlucoseMap).sort(); // Sort dates
+  const averageGlucoseLevels = dates.map((date) => {
     const avg = (
       dailyGlucoseMap[date].totalGlucose / dailyGlucoseMap[date].count
     ).toFixed(1);
     return parseFloat(avg); // Convert to float
   });
 
-  return { uniqueDates, averageGlucoseLevels }; // Return both arrays
+  return { dates, averageGlucoseLevels }; // Return both arrays
 };
 
 module.exports = { getMealsByDateRange, processMealsData };

@@ -7,8 +7,9 @@ async function login(req, res,next) {
     const isValidUser = await userModel.validateUser(username, password);
   
     if (isValidUser) {
-      req.session.userId = isValidUser.id; // Store the user ID in the session
-      next(); 
+      req.session.userId = isValidUser.id;
+      res.redirect('/home') ;// Store the user ID in the session
+      next();//start kafka consumer 
     } else {
       // If invalid, send back an error message without 
       res.render('pages/index', { alertMessage: 'Wrong username or password!' });
