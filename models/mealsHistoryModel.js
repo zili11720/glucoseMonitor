@@ -15,10 +15,9 @@ const getMealsByDateRange = async (startDate, endDate, userId) => {
 // Function to process meal data and return unique dates and average glucose levels
 const processMealsData = (mealsData) => {
   const dailyGlucoseMap = {};
-  //const mealsData = Object.values(meals);
 
   mealsData.forEach((meal) => {
-    const dateKey = new Date(meal.meal_date).toLocaleDateString(); // Get date in a consistent format
+    const dateKey = new Date(meal.meal_date).toISOString().split('T')[0]; // Format as YYYY-MM-DD
 
     // Initialize entry for the date if it doesn't exist
     if (!dailyGlucoseMap[dateKey]) {
@@ -31,7 +30,7 @@ const processMealsData = (mealsData) => {
   });
 
   // Prepare unique dates and average glucose levels arrays
-  const dates = Object.keys(dailyGlucoseMap).sort(); // Sort dates
+  const dates = Object.keys(dailyGlucoseMap).sort((a, b) => new Date(a) - new Date(b)); // Sort by date
   const averageGlucoseLevels = dates.map((date) => {
     const avg = (
       dailyGlucoseMap[date].totalGlucose / dailyGlucoseMap[date].count

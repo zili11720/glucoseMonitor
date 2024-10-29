@@ -11,22 +11,15 @@
 
     <section class="wrapper style5">
       <div class="inner">
-        <!-- Date Picker Section -->
-        <form action="/history/mealsHistory" method="GET">
-          <label for="startDate">Start Date:</label>
-          <input type="date" name="startDate" required />
-
-          <label for="endDate">End Date:</label>
-          <input type="date" name="endDate" required />
-
-          <button type="submit">Get Meals</button>
-        </form>
 
         <% if (mealsData && mealsData.length > 0) { %>
         
         <!-- Graph Section -->
         <div id="meal-history-graph-container">
-          <canvas id="mealHistoryChart"></canvas>
+          <canvas id="mealHistoryChart"
+            data-dates="<%= dates %>" 
+            data-glucose-levels="<%= averageGlucoseLevels %>">
+          </canvas>
         </div>
 
         <!-- Scrollable Meal Tabs -->
@@ -43,21 +36,32 @@
           %> 
 
           <% Object.keys(dailyMeals).forEach(date => { %>
-          <div class="meal-day">
-            <h3>
-              <%= date %> (Avg Glucose: <%= (dailyMeals[date].totalGlucose / dailyMeals[date].count).toFixed(1) %>)
-            </h3>
-            <% dailyMeals[date].meals.forEach(meal => { %>
-            <p><strong>Meal Type:</strong> <%= meal.meal_type %></p>
-            <p><strong>Description:</strong> <%= meal.description %></p>
-            <p><strong>Glucose After Meal:</strong> <%= meal.glucose_after_meal %></p>
-            <% }) %>
-          </div>
+            <div class="meal-day">
+              <h3>
+                <%= date %><br>
+                <span>(Avg Glucose: <%= (dailyMeals[date].totalGlucose / dailyMeals[date].count).toFixed(1) %>)</span>
+              </h3>
+              <% dailyMeals[date].meals.forEach(meal => { %>
+                <p><strong><%= meal.meal_type %>:</strong> <%= meal.description %></p>
+                <p>Glucose After Meal: <%= meal.glucose_after_meal %></p>
+              <% }) %>
+            </div>
           <% }) %>
-        </div>
+          
+          
 
         <% } else { %>
         <p>Please select a date range to view your meal history.</p>
+         <!-- Date Picker Section -->
+         <form action="/history/mealsHistory" method="GET">
+          <label for="startDate">Start Date:</label>
+          <input type="date" name="startDate" required />
+
+          <label for="endDate">End Date:</label>
+          <input type="date" name="endDate" required />
+
+          <button type="submit">Get Meals</button>
+        </form>
         <% } %>
       </div>
     </section>
@@ -69,16 +73,16 @@
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
   <script>
-
-     // Chart data
-     const dates =JSON.stringify(dates);
-    const glucoseLevels = averageGlucoseLevels;
-
-   console.log("Dates:", dates);
+    // Retrieve the dates and glucose levels from data attributes
+    const canvas = document.getElementById('mealHistoryChart');
+    const dates = canvas.getAttribute('data-dates').split(',');
+    const glucoseLevels = canvas.getAttribute('data-glucose-levels').split(',').map(Number);
+  
+    console.log("Dates:", dates);
     console.log("Glucose Levels:", glucoseLevels);
-
+  
     // Initialize Chart.js
-    const ctx = document.getElementById('mealHistoryChart').getContext('2d');
+    const ctx = canvas.getContext('2d');
     new Chart(ctx, {
       type: 'line',
       data: {
@@ -106,5 +110,5 @@
     });
   </script>
   
-  
+
 </html>
