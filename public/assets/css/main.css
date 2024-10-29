@@ -2560,7 +2560,8 @@ input[type="reset"].fit,
 input[type="button"].fit,
 button.fit,
 .button.fit {
-  width: 100%;
+	width: auto; /* Adjusts width to fit the content */
+	padding: 0 1.25em; /* Reduces padding for a tighter fit */
 }
 
 input[type="submit"].small,
@@ -4185,17 +4186,6 @@ body.is-mobile.landing #footer {
   border-radius: 12px; /* Rounded corners */
   box-shadow: 0px 6px 20px rgba(0, 0, 0, 0.15); /* Larger shadow */
   border: 1px solid #cccccc;
-}
-
-/* Form Group Styling */
-.form-container {
-  background-color: #f1f1f1; /* Light gray background */
-  padding: 1.5em;
-  max-width: 750px; /* Smaller width */
-  margin: 0 auto;
-  border-radius: 10px;
-  box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.1); /* Softer shadow */
-  border: 1px solid #dddddd;
 }
 
 /* Form Group Styling */
