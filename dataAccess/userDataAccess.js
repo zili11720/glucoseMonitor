@@ -1,5 +1,5 @@
 const sql = require('mssql');
-const { dbConfig } = require('../config'); // get connection string from config file
+const { dbConfig } = require('../config/dbConfig'); // get connection string from config file
 
 async function checkUserCredentials(username, password) {
     try {

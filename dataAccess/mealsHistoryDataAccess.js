@@ -1,6 +1,6 @@
 const axios = require("axios");
 const sql = require("mssql");
-const { db } = require("../config");
+const { db } = require("../config/dbConfig");
 
 const getMealsByDateRange = async (startDate, endDate, userId) => {
   try {

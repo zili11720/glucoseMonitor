@@ -1,4 +1,4 @@
-const kafka = require('./kafkaConfig');
+const kafka = require('../config/kafkaConfig');
 
 let consumer;
 

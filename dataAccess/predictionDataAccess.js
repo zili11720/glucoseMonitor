@@ -1,5 +1,5 @@
 const sql = require('mssql'); // Assuming you're using MSSQL based on somee.com
-const {dbConfig} = require('../config'); // get connection string from config file
+const {dbConfig} = require('../config/dbConfig'); // get connection string from config file
 
 // Function to fetch user's meals by userId
 const getUserMeals = async (userId) => {
