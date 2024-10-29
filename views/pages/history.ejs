@@ -39,7 +39,7 @@
             <div class="meal-day">
               <h3>
                 <%= date %><br>
-                <span>(Avg Glucose: <%= (dailyMeals[date].totalGlucose / dailyMeals[date].count).toFixed(1) %>)</span>
+                <span>Avg Glucose: <%= (dailyMeals[date].totalGlucose / dailyMeals[date].count).toFixed(1) %></span>
               </h3>
               <% dailyMeals[date].meals.forEach(meal => { %>
                 <p><strong><%= meal.meal_type %>:</strong> <%= meal.description %></p>
@@ -49,7 +49,6 @@
           <% }) %>
           
           
-
         <% } else { %>
         <p>Please select a date range to view your meal history.</p>
          <!-- Date Picker Section -->
