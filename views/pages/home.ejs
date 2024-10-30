@@ -46,7 +46,7 @@
 
           <!-- Submit Button -->
           <div class="form-group">
-            <button type="submit">Analyze Image</button>
+            <button type="submit" class="button fit primary">Analyze Image</button>
           </div>
         </form>
 
@@ -62,37 +62,43 @@
     </section>
   </article>
 
-  <!-- Modal Popup for Detected Food -->
-  <% if (typeof foodTag !== 'undefined') { %>
-    <div id="foodTagModal" class="modal">
-      <div class="modal-content">
-        <span class="close">&times;</span>
-        <p>Meal seccessfully addad<br>
+ <!-- Modal Popup for Detected Food or Kafka Message -->
+<% if (typeof foodTag !== 'undefined' || typeof kafkaMessege !== 'undefined') { %>
+  <div id="foodTagModal" class="modal">
+    <div class="modal-content">
+      <span class="close">&times;</span>
+      <% if (typeof foodTag !== 'undefined') { %>
+        <p>Meal successfully added<br>
           Detected food: <strong style="color: black;"><%= foodTag %></strong></p>
-      </div>
+      <% } else if (typeof kafkaMessege !== 'undefined') { %>
+        <p>You received a new message<br> 
+          <strong style="color: black;"><%= kafkaMessege %></strong></p>
+      <% } %>
     </div>
+  </div>
 
-    <script>
-      // Show the modal if foodTag exists
-      var modal = document.getElementById("foodTagModal");
-      var span = document.getElementsByClassName("close")[0];
+  <script>
+    // Show the modal if foodTag or kafkaMessege exists
+    var modal = document.getElementById("foodTagModal");
+    var span = document.getElementsByClassName("close")[0];
 
-      // Display the modal
-      modal.style.display = "block";
+    // Display the modal
+    modal.style.display = "block";
 
-      // Close the modal when the 'X' is clicked
-      span.onclick = function() {
+    // Close the modal when the 'X' is clicked
+    span.onclick = function() {
+      modal.style.display = "none";
+    }
+
+    // Close the modal when the user clicks anywhere outside of the modal
+    window.onclick = function(event) {
+      if (event.target == modal) {
         modal.style.display = "none";
       }
+    }
+  </script>
+<% } %>
 
-      // Close the modal when the user clicks anywhere outside of the modal
-      window.onclick = function(event) {
-        if (event.target == modal) {
-          modal.style.display = "none";
-        }
-      }
-    </script>
-  <% } %>
 
   <%- include('../partials/footer') %>
 </body>
