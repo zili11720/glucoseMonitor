@@ -2560,8 +2560,8 @@ input[type="reset"].fit,
 input[type="button"].fit,
 button.fit,
 .button.fit {
-	width: auto; /* Adjusts width to fit the content */
-	padding: 0 1.25em; /* Reduces padding for a tighter fit */
+  width: auto; /* Adjusts width to fit the content */
+  padding: 0 1.25em; /* Reduces padding for a tighter fit */
 }
 
 input[type="submit"].small,
@@ -4260,7 +4260,7 @@ textarea {
 }
 
 .meal-day {
-  background-color: #f0f0f0; /* Light gray background */
+  background-color: #d0e7ff; /* Light blue background */
   border-radius: 10px;
   padding: 15px;
   min-width: 250px; /* Wider tabs */
@@ -4271,13 +4271,13 @@ textarea {
 .meal-day h3 {
   font-size: 1em; /* Smaller font for date header */
   margin-bottom: 8px;
-  color: #555;
+  color: #2a6496; /* Darker blue for the header */
 }
 
 .meal-day p {
   font-size: 0.9em;
   line-height: 1.4;
-  color: #333;
+  color: #1e5183; /* Darker blue for the text */
   margin: 4px 0;
 }
 
