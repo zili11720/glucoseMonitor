@@ -4,17 +4,14 @@ const { consumeTestResult } = require('./testResultsConsumer');
 let glucoseConsumer; // Declare the glucose consumer
 let testResultConsumer; // Declare the test result consumer
 
-const startKafkaConsumer = async (req, res, next) => {
+const startKafkaConsumer = async (req, res) => {
   const userId = req.session.userId; // Get userId from session after login
   if (userId) {
-    // Start Kafka consumers with access to the Socket.io instance
+
     glucoseConsumer = await consumeGlucoseData(userId);
     testResultConsumer = await consumeTestResult();
-    
-    
   }
 
-  //next(); // Move to the next middleware
 };
 
 const disconnectKafkaConsumer = async (req, res, next) => {

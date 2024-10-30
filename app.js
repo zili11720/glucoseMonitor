@@ -4,7 +4,6 @@ const userRouter = require("./routes/userRoutes"); // User-related routes
 const newMealRouter = require("./routes/newMealRoutes"); // Add a users new meal routes
 const mealsHistoryRoutes = require("./routes/mealsHistoryRoutes");
 const predictionRoutes = require("./routes/predictionRoutes.js");
-const { consumeGlucoseData } = require('./kafka/highGlucoseConsumer'); // Import the consumer
 
 const app = express();
 const port = 3000;

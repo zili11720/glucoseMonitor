@@ -4155,7 +4155,7 @@ body.is-mobile.landing #footer {
   display: inline-block;
   width: 150px;
   height: 150px;
-  background-color: #cccccc;
+  background-color: white;
   border: 2px dashed #999999;
   color: #666666;
   text-align: center;
@@ -4292,7 +4292,7 @@ input[type="file"]:hover {
 }
 
 .meal-day {
-  background-color: #d0e7ff; /* Light blue background */
+  background-color: #d1f1ee; /* Light blue background */
   border-radius: 10px;
   padding: 15px;
   min-width: 250px; /* Wider tabs */
@@ -4374,7 +4374,7 @@ form input {
 #mealHistoryChart {
   width: 100% !important;
   height: 450px !important;
-  background-color: transparent; /* Transparent background for the canvas */
+  background-color:rgb(252, 251, 249); /* Transparent background for the canvas */
   border-radius: 10px;
 }
 

@@ -3,7 +3,7 @@ const newMealDataAccess = require('../dataAccess/newMealDataAccess');
 
 const addMeal = async (userId, foodTag, mealDate, mealType, isSpecialDay, glucoseAfterMeal, avgGlucose) => {
  
-  let glucoseTag = "high"; 
+  let glucoseTag = "average"; 
 
 if (glucoseAfterMeal > 140) {
     glucoseTag = "high";
