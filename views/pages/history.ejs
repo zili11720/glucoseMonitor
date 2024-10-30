@@ -50,26 +50,20 @@
           
           
         <% } else { %>
-          <p style="font-size: 24px; font-weight: bold;">Select a date range to view your meal history:</p>
           <!-- Date Picker Section -->
-          <form action="/history/mealsHistory" method="GET">
-            <table>
-              <tr>
-                <td>
+          <form class="form-container"  action="/history/mealsHistory" method="GET">
+            <p style="font-size: 19px; font-weight: bold;">Select a date range to view your meal history:</p>
                   <label for="startDate"><strong>Start Date:</strong></label>
                   <input type="date" name="startDate" required />
                   
-                </td>
-                <td>
                   <label for="endDate"><strong>End Date:</strong></label>
                   <input type="date" name="endDate" required />
-                </td>
-                <td>
-                  <br> 
+
+               <br>
+               <br> <!-- Adds a line break -->
                   <button type="submit" class="button fit primary">Get Meals</button>
-                </td>
-              </tr>
-            </table>
+               </br>
+                
           </form> 
         <% } %>
       </div>

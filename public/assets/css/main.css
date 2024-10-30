@@ -2875,7 +2875,7 @@ button:disabled,
 /* Wrapper */
 
 .wrapper {
-  padding: 6em 0 4em 0; 
+  padding: 6em 0 4em 0;
 }
 
 .wrapper > .inner {
@@ -4166,7 +4166,7 @@ body.is-mobile.landing #footer {
 }
 
 .upload-square:hover {
-  background-color: #b3b3b3;
+  background-color: #f3efef;
 }
 
 .upload-square span {
@@ -4179,60 +4179,108 @@ body.is-mobile.landing #footer {
 }
 
 /* Form Container Styling */
+/* Form container */
 .form-container {
-  background-color: #f4f4f9; /* Light grey background */
+  background-color: #e6f2ff; /* Light blue background */
   padding: 2.5em;
-  max-width: 800px; /* Make it wider */
+  max-width: 600px;
   margin: 0 auto;
-  border-radius: 12px; /* Rounded corners */
-  box-shadow: 0px 6px 20px rgba(0, 0, 0, 0.15); /* Larger shadow */
-  border: 1px solid #cccccc;
+  border-radius: 12px;
+  box-shadow: 0px 6px 20px rgba(0, 0, 0, 0.15);
+  border: 1px solid #b3d1ff; /* Soft blue border */
+  text-align: left;
 }
 
 /* Form Group Styling */
 .form-group {
-  margin-bottom: 1em; /* Less space between fields */
+  margin-bottom: 1.5em;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
 }
 
+/* Label Styling */
 label {
-  display: block;
-  margin-bottom: 0.4em;
-  color: #444; /* Medium gray text */
-  font-weight: 600; /* Bold label */
-  font-size: 0.9em; /* Smaller label font */
+  font-weight: bold;
+  margin-bottom: 0.5em;
+  color: #004080; /* Darker blue for text */
 }
 
-select,
-input[type="tel"],
-input[type="email"],
-textarea {
+/* Date Input Styling */
+input[type="date"] {
   width: 40%;
-  padding: 0.75em;
-  border: 1px solid #cccccc; /* Light border */
-  border-radius: 5px; /* Small rounded corners */
-  background-color: #fff; /* White background */
-  color: #333; /* Dark text */
-  font-size: 0.85em; /* Smaller input font */
-  box-shadow: inset 0px 1px 3px rgba(0, 0, 0, 0.05); /* Softer inset shadow */
+  padding: 10px;
+  margin-bottom: 1em;
+  border-radius: 8px;
+  border: 1px solid #99c2ff; /* Light blue border */
+  font-size: 1em;
+  background-color: #ffffff;
+  box-shadow: inset 0px 1px 5px rgba(0, 0, 0, 0.1);
 }
 
-select:focus,
-input[type="tel"]:focus,
-input[type="email"]:focus,
-textarea:focus {
-  outline: none;
-  border-color: #5c8aff; /* Light blue border on focus */
-  background-color: #f9f9f9; /* Slightly lighter background on focus */
+/* Other Input Fields */
+input[type="text"],
+input[type="number"],
+input[type="file"],
+select {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 1em;
+  border-radius: 8px;
+  border: 1px solid #99c2ff; /* Light blue border */
+  font-size: 1em;
+  background-color: #ffffff;
+  box-shadow: inset 0px 1px 5px rgba(0, 0, 0, 0.1);
 }
 
+/* Input Focus Styling */
+input:focus,
+select:focus {
+  border-color: #66a3ff; /* Slightly darker blue on focus */
+  background-color: #f0f8ff; /* Light blue background on focus */
+}
+
+/* Textarea Styling */
 textarea {
   resize: vertical;
-  height: 100px; /* Smaller textarea */
+  width: 100%;
+  height: 80px;
+  border-radius: 8px;
+  border: 1px solid #99c2ff; /* Light blue border */
+  background-color: #ffffff;
 }
 
-/* Add spacing between form and footer */
-.wrapper {
-  padding-bottom: 2.5em;
+/* Button Styling */
+button {
+  background-color: #0073e6; /* Bright blue button */
+  color: white;
+  padding: 12px 20px;
+  border: none;
+  border-radius: 8px;
+  font-size: 1.1em;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  width: 100%;
+}
+
+/* Button Hover Effect */
+button:hover {
+  background-color: #005bb5; /* Darker blue on hover */
+}
+
+/* File Input Styling */
+input[type="file"] {
+  width: 100%;
+  padding: 1em;
+  border: 2px dashed #99c2ff; /* Light blue dashed border */
+  text-align: center;
+  background-color: #f0f8ff; /* Light blue background for file input */
+  cursor: pointer;
+}
+
+/* File Input Hover Effect */
+input[type="file"]:hover {
+  border-color: #66a3ff; /* Slightly darker blue border on hover */
 }
 
 /* Media Queries */
