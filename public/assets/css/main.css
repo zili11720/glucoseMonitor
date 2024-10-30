@@ -4133,11 +4133,12 @@ body.is-mobile.landing #footer {
 
 .login-input {
   width: 100%;
+  padding: 10px;
   margin-bottom: 10px;
   border-radius: 5px;
   border: 1px solid #ccc;
-  text-align: left;
 }
+
 
 .login-button {
   width: 100%;
@@ -4213,14 +4214,13 @@ input[type="date"] {
   padding: 10px;
   margin-bottom: 1em;
   border-radius: 8px;
-  border: 1px solid #ffffff; /* Light blue border */
+  border: 1px solid #99c2ff; /* Light blue border */ /* Light blue border */
   font-size: 1em;
   background-color: #ffffff;
   box-shadow: inset 0px 1px 5px rgba(0, 0, 0, 0.1);
 }
 
 /* Other Input Fields */
-input[type="text"],
 input[type="number"],
 input[type="file"],
 select {
@@ -4249,24 +4249,6 @@ textarea {
   border-radius: 8px;
   border: 1px solid #99c2ff; /* Light blue border */
   background-color: #ffffff;
-}
-
-/* Button Styling */
-button {
-  background-color: #0073e6; /* Bright blue button */
-  color: white;
-  padding: 12px 20px;
-  border: none;
-  border-radius: 8px;
-  font-size: 1.1em;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-  width: 100%;
-}
-
-/* Button Hover Effect */
-button:hover {
-  background-color: #005bb5; /* Darker blue on hover */
 }
 
 /* File Input Styling */
