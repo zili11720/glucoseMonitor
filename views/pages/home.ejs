@@ -68,8 +68,13 @@
     <div class="modal-content">
       <span class="close">&times;</span>
       <% if (typeof foodTag !== 'undefined') { %>
-        <p>Meal successfully added<br>
-          Detected food: <strong style="color: black;"><%= foodTag %></strong></p>
+        <% if (foodTag !== 'Not Food') { %>
+          <p>Meal successfully added<br>
+            Detected food: <strong style="color: black;"><%= foodTag %></strong></p>
+        <% } else { %>
+          <p>The picture you provided is not food!<br> 
+          Please try again.</p>
+        <% } %>
       <% } else if (typeof kafkaMessege !== 'undefined') { %>
         <p>You received a new message<br> 
           <strong style="color: black;"><%= kafkaMessege %></strong></p>
