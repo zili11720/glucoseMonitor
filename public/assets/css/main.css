@@ -196,14 +196,15 @@ body.is-preload *:after {
 body,
 input,
 select,
-textarea {
-  color: #020202;
+textarea{
+  color: rgb(17, 17, 17)!important;
   font-family: "Open Sans", Helvetica, sans-serif;
   font-size: 15pt;
   font-weight: 400;
   letter-spacing: 0.075em;
   line-height: 1.65em;
 }
+
 
 @media screen and (max-width: 1680px) {
   body,
@@ -1930,6 +1931,9 @@ label {
 input[type="text"],
 input[type="password"],
 input[type="email"],
+input[type="tel"],
+input[type="number"],
+input[type="date"],
 select,
 textarea {
   -moz-appearance: none;
@@ -1950,6 +1954,10 @@ textarea {
 input[type="text"]:invalid,
 input[type="password"]:invalid,
 input[type="email"]:invalid,
+input[type="tel"]:invalid,
+input[type="number"]:invalid,
+input[type="date"]:invalid,
+input[type="tel"]:invalid,
 select:invalid,
 textarea:invalid {
   box-shadow: none;
@@ -1958,6 +1966,9 @@ textarea:invalid {
 input[type="text"]:focus,
 input[type="password"]:focus,
 input[type="email"]:focus,
+input[type="number"]:focus,
+input[type="date"]:focus,
+input[type="tel"]:focus,
 select:focus,
 textarea:focus {
   box-shadow: 0 0 0 2px #21b2a6;
@@ -1983,6 +1994,9 @@ select::-ms-expand {
 input[type="text"],
 input[type="password"],
 input[type="email"],
+input[type="number"],
+input[type="date"],
+input[type="tel"],
 select {
   height: 2.75em;
 }
@@ -2952,6 +2966,9 @@ button:disabled,
 .wrapper.style1 input[type="text"],
 .wrapper.style1 input[type="password"],
 .wrapper.style1 input[type="email"],
+.wrapper.style1 input[type="number"],
+.wrapper.style1 input[type="date"],
+.wrapper.style1 input[type="tel"],
 .wrapper.style1 select,
 .wrapper.style1 textarea {
   background-color: rgba(255, 255, 255, 0.075);
@@ -3122,6 +3139,7 @@ button:disabled,
 .wrapper.style3 input[type="text"],
 .wrapper.style3 input[type="password"],
 .wrapper.style3 input[type="email"],
+.wrapper.style3 input[type="tel"],
 .wrapper.style3 select,
 .wrapper.style3 textarea {
   background-color: rgba(255, 255, 255, 0.075);
@@ -3293,6 +3311,9 @@ button:disabled,
 .wrapper.style5 input[type="text"],
 .wrapper.style5 input[type="password"],
 .wrapper.style5 input[type="email"],
+.wrapper.style5 input[type="number"],
+.wrapper.style5 input[type="date"],
+.wrapper.style5 input[type="tel"],
 .wrapper.style5 select,
 .wrapper.style5 textarea {
   background-color: rgba(0, 0, 0, 0.0375);
@@ -4155,7 +4176,7 @@ body.is-mobile.landing #footer {
   display: inline-block;
   width: 150px;
   height: 150px;
-  background-color: white;
+  background-color:rgb(205, 228, 226);
   border: 2px dashed #999999;
   color: #666666;
   text-align: center;
@@ -4182,13 +4203,11 @@ body.is-mobile.landing #footer {
 /* Form Container Styling */
 /* Form container */
 .form-container {
-  background-color: #e6f2ff; /* Light blue background */
+  background-color: transparent; /* Light blue background */
   padding: 2.5em;
   max-width: 600px;
   margin: 0 auto;
-  border-radius: 12px;
-  box-shadow: 0px 6px 20px rgba(0, 0, 0, 0.15);
-  border: 1px solid #f8fafd; /* Soft blue border */
+  box-shadow: 0px 6px 20px rgba(186, 185, 185, 0.15);
   text-align: left;
   margin-right: 0;
 }
@@ -4199,83 +4218,6 @@ body.is-mobile.landing #footer {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-}
-
-/* Label Styling */
-label {
-  font-weight: bold;
-  margin-bottom: 0.5em;
-  color: #004080; /* Darker blue for text */
-}
-
-/* Date Input Styling */
-input[type="date"] {
-  width: 40%;
-  padding: 10px;
-  margin-bottom: 1em;
-  border-radius: 8px;
-  border: 1px solid #99c2ff; /* Light blue border */ /* Light blue border */
-  font-size: 1em;
-  background-color: #ffffff;
-  box-shadow: inset 0px 1px 5px rgba(0, 0, 0, 0.1);
-}
-
-/* Other Input Fields */
-input[type="number"],
-input[type="file"],
-select {
-  width: 100%;
-  padding: 10px;
-  margin-bottom: 1em;
-  border-radius: 8px;
-  border: 1px solid #99c2ff; /* Light blue border */
-  font-size: 1em;
-  background-color: #ffffff;
-  box-shadow: inset 0px 1px 5px rgba(0, 0, 0, 0.1);
-}
-
-/* Input Focus Styling */
-input:focus,
-select:focus {
-  border-color: #66a3ff; /* Slightly darker blue on focus */
-  background-color: #f0f8ff; /* Light blue background on focus */
-}
-
-/* Textarea Styling */
-textarea {
-  resize: vertical;
-  width: 100%;
-  height: 80px;
-  border-radius: 8px;
-  border: 1px solid #99c2ff; /* Light blue border */
-  background-color: #ffffff;
-}
-
-/* File Input Styling */
-input[type="file"] {
-  width: 100%;
-  padding: 1em;
-  border: 2px dashed #99c2ff; /* Light blue dashed border */
-  text-align: center;
-  background-color: #f0f8ff; /* Light blue background for file input */
-  cursor: pointer;
-}
-
-/* File Input Hover Effect */
-input[type="file"]:hover {
-  border-color: #66a3ff; /* Slightly darker blue border on hover */
-}
-
-/* Media Queries */
-@media screen and (max-width: 768px) {
-  .form-container {
-    padding: 1em;
-    max-width: 100%;
-  }
-
-  .submit-button {
-    padding: 0.6em;
-  }
 }
 
 .white-text {
@@ -4320,10 +4262,6 @@ form {
 
 form label {
   margin-right: 10px;
-}
-
-form input {
-  margin-right: 20px;
 }
 
 /* Modal Styles */
