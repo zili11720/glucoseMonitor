@@ -14,6 +14,7 @@ const kafka = new Kafka({
     password: 'sZeWm6Hffw5PwlWekB9HtVXphp8X8v',
   },
   connectionTimeout: 30000, // 30 seconds
+  requestTimeout: 30000,
 });
 
 module.exports = kafka;  // Export the Kafka instance for use in your producers and consumers

@@ -19,6 +19,11 @@ router.get('/contact', (req, res) => {
     res.render('pages/contact');  
 });
 
+router.get('/contactUs', (req, res) => {
+    const noUser=true
+    res.render('pages/contact',{noUser});  
+});
+
 // Logout route
 router.get('/logout', disconnectKafkaConsumer); // Handle logout
 
