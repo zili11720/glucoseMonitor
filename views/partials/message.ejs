@@ -1,0 +1,24 @@
+<div id="message-box">Waiting for messages...</div>
+
+<script>
+    const socket = io();
+    const messageBox = document.getElementById('message-box');
+
+    // Listen for 'kafka message' events from the server
+    socket.on('kafka message', (msg) => {
+        // Update the message box content and show it
+        messageBox.style.display = 'flex';
+        messageBox.textContent = msg;
+
+        // Trigger the jumping animation
+        messageBox.classList.remove('jump'); // Reset animation
+        void messageBox.offsetWidth; // Trigger reflow to restart animation
+        messageBox.classList.add('jump');
+
+        // Set a timeout to hide the message box after 10 seconds
+        setTimeout(() => {
+            messageBox.style.display = 'none'; // Hide the message box
+            messageBox.classList.remove('jump'); // Remove the animation class
+        }, 10000);
+    });
+</script>

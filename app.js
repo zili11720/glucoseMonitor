@@ -1,17 +1,40 @@
 const express = require("express");
 const session = require("express-session"); //A session for managing user account- access to user's id after login
+const http = require('http');
+const socketIo = require('socket.io');//Socket for real time messeges
 const userRouter = require("./routes/userRoutes"); // User-related routes
-const newMealRouter = require("./routes/newMealRoutes"); // Add a users new meal routes
+const newMealRouter = require("./routes/newMealRoutes"); // New meal routes
 const mealsHistoryRoutes = require("./routes/mealsHistoryRoutes");
 const predictionRoutes = require("./routes/predictionRoutes.js");
+const messageService = require('./kafka/messageService');
 
 const app = express();
+const server = http.createServer(app);
+const io = socketIo(server);
 const port = 3000;
 
 app.use(express.static("public"));
 app.set("view engine", "ejs");
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+
+// Initialize messageService with the Socket.io instance
+messageService.initializeSocket(io);
+
+// Handle Socket.io connections
+io.on('connection', (socket) => {
+  console.log('New client connected');
+
+  // Listen for messages from the client
+  socket.on('kafka message', (msg) => {
+      messageService.broadcastMessage(msg);
+  });
+
+  // Handle disconnection
+  socket.on('disconnect', () => {
+      console.log('Client disconnected');
+  });
+});
 
 app.use(
   session({
@@ -21,6 +44,7 @@ app.use(
     cookie: { secure: false }, // Set to true if using HTTPS
   })
 );
+
 
 app.get("/", (req, res) => {
   res.render("pages/index");
@@ -37,6 +61,6 @@ app.use((req, res, next) => {
   res.status(404).send("Sorry, can't find that!");
 });
 
-app.listen(port, () => {
+server.listen(port, () => {
   console.log(`Example app listening on port ${port}`);
 });

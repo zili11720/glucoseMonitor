@@ -1,4 +1,5 @@
 const kafka = require("../config/kafkaConfig");
+const messageService = require('./messageService');
 
 let consumer;
 
@@ -14,13 +15,8 @@ const consumeGlucoseData = async (sessionUserId) => {
       const glucoseData = JSON.parse(message.value.toString());
       // Check if the message userId matches the session userId
       if (glucoseData.userId === sessionUserId) {
-        console.log(
-          `Received message for user ${sessionUserId}: ${JSON.stringify(
-            glucoseData,
-            null,
-            2
-          )}`
-        );
+        let message=`Your recent glucose readings have been elevated, with a current level of ${glucoseData.avgGlucose}`
+        messageService.broadcastMessage(message);
       }
     },
   });

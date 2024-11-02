@@ -4321,3 +4321,34 @@ form label {
   font-size: 0.4rem; /* Smaller text size for dates and numbers */
   fill: #333; /* Darker text color for better contrast */
 }
+
+/* Style for the jumping message box */
+#message-box {
+  display: none;
+  position: fixed; /* Position it fixed relative to the viewport */
+  left: 50%;
+  top: 10px; /* Position it closer to the top of the viewport */
+  transform: translateX(-50%); /* Center it horizontally */
+  align-items: center;
+  justify-content: center;
+  width: auto;
+  height: auto; /* Make it shorter */
+  font-size: 1.2rem;
+  color: rgb(8, 8, 8);
+  background-color: white;
+  border-radius: 5; /* Remove rounded corners for squared edges */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  transition: transform 0.3s;
+  z-index: 1000; /* Ensure it’s above other content */
+}
+
+/* Animation effect */
+.jump {
+  animation: jump 0.5s ease-out;
+}
+
+@keyframes jump {
+  0% { transform: translate(-50%, 0); } /* Adjust for fixed positioning */
+  50% { transform: translate(-50%, -10px); }
+  100% { transform: translate(-50%, 0); }
+}

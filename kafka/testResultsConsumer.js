@@ -1,4 +1,5 @@
 const kafka = require('../config/kafkaConfig');
+const messageService = require('./messageService');
 
 let consumer;
 
@@ -11,9 +12,8 @@ const consumeTestResult = async () => {
 
     await consumer.run({
       eachMessage: async ({ topic, partition, message }) => {
-        const receivedMessage = message.value.toString();
-        console.log("consumer running")
-        console.log(`Received message: ${receivedMessage}`);
+        const receivedMessage = JSON.parse(message.value.toString());
+        messageService.broadcastMessage(receivedMessage.message);
       },
     });
   return consumer; // Return the consumer instance
