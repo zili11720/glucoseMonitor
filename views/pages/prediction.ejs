@@ -39,16 +39,42 @@
             <button type="submit" class="button fit primary">Analyze Glucose</button>
           </div>
         </form>
-
-         <!-- Dynamic Predicted Glucose Tag Result -->
-         <% if (typeof predictedGlucoseTag !== 'undefined') { %>
-            <div class="form-group">
-              <h3>Predicted Glucose Level: <span><%= predictedGlucoseTag %></span></h3>
-            </div>
-            <% } %>
-         </div>
+        
+         </div>     
     </section>
   </article>
+
+   <!-- Modal Popup for Detected Food or Kafka Message -->
+<% if (typeof predictedGlucoseTag  !== 'undefined') { %>
+  <div id="predictedTagModal" class="modal">
+    <div class="modal-content">
+      <span class="close">&times;</span>
+      <p>Predicted Glucose Level: </pPredicted><br>
+      <strong style="color: black;"><%= predictedGlucoseTag %></strong></p>
+    </div>
+  </div>
+
+  <script>
+    // Show the modal if foodTag or kafkaMessege exists
+    var modal = document.getElementById("predictedTagModal");
+    var span = document.getElementsByClassName("close")[0];
+
+    // Display the modal
+    modal.style.display = "block";
+
+    // Close the modal when the 'X' is clicked
+    span.onclick = function() {
+      modal.style.display = "none";
+    }
+
+    // Close the modal when the user clicks anywhere outside of the modal
+    window.onclick = function(event) {
+      if (event.target == modal) {
+        modal.style.display = "none";
+      }
+    }
+  </script>
+<% } %>
 
   <%- include('../partials/footer') %>
 </body>
