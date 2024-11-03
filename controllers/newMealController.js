@@ -15,19 +15,24 @@ async function addNewMeal(req, res){
       return res.status(400).send('No file uploaded.');
     }
      // Analyze the image to get the food tag using imagga
-     const foodTag = await analyzeImage(req.file.path);
+     const foodTag = await newMealModel.analyzeImage(req.file.path);
 
      // Fetch the glucose level based on the food tag
-     const avgGlucose = await getUSDAglucose(foodTag);
-     console.log(avgGlucose)
+     const avgGlucose= await USDAmodel.getUSDAglucose(foodTag);
 
       // Get date type from hebcal service
       const userDate =
         mealDate || new Date().toISOString().split("T")[0];
-        const isSpecialDay = await getDateType(userDate)
-        console.log(isSpecialDay)
 
-        console.log("foodTag:", foodTag)
+      let isSpecialDay 
+      const { date, dayType } = await dateModel.getDateType(userDate);
+      if(dayType=="Holiday"){
+        isSpecialDay= "yes"
+      }
+      else {
+        isSpecialDay="no"
+      }
+
     // Call the model to save meal data
     if (foodTag !== 'Unknown food')
          await newMealModel.addMeal(userId, foodTag, mealDate, mealType, isSpecialDay, glucoseLevel, avgGlucose);
@@ -51,49 +56,9 @@ const upload = multer({ storage: storage,
     limits: { fileSize: 1024 * 1024 * 5 }, // 5 MB file size limit
  });
 
-async function analyzeImage(imageFilePath) {
-    console.log("hi")
-    try {
-        console.log(imageFilePath)
-        const foodTag = await newMealModel.analyzeImage(imageFilePath);
-       return foodTag
-    
-    } catch (error) {
-        console.error('Error analyzing image:', error);
-        throw error
-    }
-};
 
-
-
-async function getUSDAglucose(foodTag){ 
-    try {
-       return await USDAmodel.getUSDAglucose(foodTag);
-
-    } catch (error) {
-        console.error('Error fetching glucose level:', error);
-        throw error;
-    }
-};
-
-async function getDateType(userDate){
-    try {
-     
-      // Call the date model with the user's date
-      const { date, dayType } = await dateModel.getDateType(userDate);
-      if(dayType=="Holiday"){
-        return "yes"
-      }
-      else{
-        return "no"
-      }
-    } catch (error) {
-      console.error("Error fetching day type:", error);
-     throw error
-    }
-};
 
 module.exports = {
-    addNewMeal,analyzeImage,getUSDAglucose,getDateType, upload
+    addNewMeal, upload
   };
   
