@@ -40,7 +40,7 @@ async function addNewMeal(req, res){
 // Configure multer storage
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
-      cb(null, 'uploads/'); // Ensure this directory exists
+      cb(null, 'public/uploads/'); // Ensure this directory exists
     },
     filename: (req, file, cb) => {
       cb(null, Date.now() + path.extname(file.originalname)); // Ensure file extension is added

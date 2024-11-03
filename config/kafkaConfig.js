@@ -2,7 +2,7 @@ const { Kafka } = require('kafkajs');
 
 const kafka = new Kafka({
   clientId: 'my-app',
-  brokers: ['cs9vj7hnu57hk0e3t22g.any.eu-central-1.mpx.prd.cloud.redpanda.com:9092'], 
+  brokers: ['csjrjrm921nrmk52n3p0.any.us-east-1.mpx.prd.cloud.redpanda.com:9092'], 
   ssl:true,
   retry: {
     initialRetryTime: 300,  // Initial delay before the first retry
@@ -11,7 +11,7 @@ const kafka = new Kafka({
   sasl: { 
     mechanism: 'scram-sha-256',        
     username: 'Zili',
-    password: 'sZeWm6Hffw5PwlWekB9HtVXphp8X8v',
+    password: 'anI32PsnwJM2bv7VpvRISmkgctuTVN',
   },
   connectionTimeout: 30000, // 30 seconds
   requestTimeout: 30000,
