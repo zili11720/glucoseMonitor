@@ -35,7 +35,7 @@ const decodeGlucoseTag = (tag) => {
 const trainModel = async (userId) => {
      // Fetch user's meal data from the database
      const mealData = await dataAccess.getUserMeals(userId);
-     console.log(mealData)
+     
      if (!mealData.length) {
          throw new Error('No meal data found for the user.');
      }

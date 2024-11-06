@@ -10,7 +10,6 @@ async function validateUser(username, password) {
       return null;  // Return null if the user is not found
     }
 
-    return isValid;
   } catch (err) {
     throw new Error('Error validating user: ' + err.message);
   }

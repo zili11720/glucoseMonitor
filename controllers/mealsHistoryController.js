@@ -1,9 +1,9 @@
-// controller
 const mealsHistoryModel = require("../models/mealsHistoryModel");
 
-exports.getMealsHistory = async (req, res) => {
+async function getMealsHistory  (req, res) {
   const { startDate, endDate } = req.query;
-  const userId = req.session.userId;
+
+  const userId = req.session.userId;//get user id from the session
 
   try {
     let mealsData = null;
@@ -12,8 +12,7 @@ exports.getMealsHistory = async (req, res) => {
     }
 
     // Process data for the graph only if mealsData is available
-    const dataForGraph = mealsData ? mealsHistoryModel.processMealsData(mealsData) : { dates: [], averageGlucoseLevels: [] };
-    console.log(dataForGraph)
+    const dataForGraph = mealsData ? mealsHistoryModel.processMealsData(mealsData) : { dates: [], averageGlucoseLevels: [] }
     res.render("pages/history", { mealsData, dates: dataForGraph.dates, averageGlucoseLevels: dataForGraph.averageGlucoseLevels });
 
   } catch (error) {
@@ -21,3 +20,7 @@ exports.getMealsHistory = async (req, res) => {
     res.status(500).send("Server Error");
   }
 };
+
+module.exports = {getMealsHistory};
+
+

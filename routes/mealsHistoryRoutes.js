@@ -9,5 +9,4 @@ router.get('/', (req, res) => {
 // Route for fetching meals history within a date range
 router.get("/mealsHistory", mealsHistoryController.getMealsHistory);
   
-
 module.exports = router;

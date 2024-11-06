@@ -6,7 +6,8 @@ const dateDataAccess = require('../dataAccess/dateDataAccess');
  */
 const getDateType = async (userDate) => { 
 
-    const hebcalData = await dateDataAccess.getDateType(userDate); // העברת התאריך לגישה לנתונים
+    const hebcalData = await dateDataAccess.getDateType(userDate); 
+    console.log(hebcalData)
     let dayType = "Regular Day"; // Default to "Regular Day"
     if (hebcalData.events) {
       const eventsCount = hebcalData.events.length;

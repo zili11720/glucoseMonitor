@@ -9,6 +9,4 @@ router.get('/', (req, res) => {
 
 router.post('/addNewMeal',  newMealController.upload.single('imageFile'),newMealController.addNewMeal);
 
-
-
 module.exports = router;

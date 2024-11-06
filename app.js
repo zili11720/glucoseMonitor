@@ -25,11 +25,6 @@ messageService.initializeSocket(io);
 io.on('connection', (socket) => {
   console.log('New client connected');
 
-  // Listen for messages from the client
-  //socket.on('kafka message', (msg) => {
-    //  messageService.broadcastMessage(msg);
-  //});
-
   // Handle disconnection
   socket.on('disconnect', () => {
       console.log('Client disconnected');

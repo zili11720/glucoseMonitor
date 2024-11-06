@@ -11,21 +11,20 @@ exports.predictGlucose = async (req, res) => {
 
         // Get new meal info
         const avgGlucose=await USDAmodel.getUSDAglucose(req.body.mealDescription)
-        console.log("avg usda:",avgGlucose)
         let  mealType = req.body.mealType;
         let isSpecialDay=await dateModel.getDateType(req.body.mealDate)
-        console.log("date:",isSpecialDay)
 
         // Predict glucose level for the new meal
         const predictedGlucoseTag = predictionModel.predictGlucoseLevel(
             decisionTree,
             mealType,
-            parseFloat(avgGlucose), // Ensure avgGlucose is a number
+            parseFloat(avgGlucose), 
             isSpecialDay
         );
 
         // Render the result page or send the result as JSON
         res.render('pages/prediction', { predictedGlucoseTag });
+        
     } catch (error) {
         console.error('Error during glucose prediction:', error);
         res.status(500).send('An error occurred during prediction.');

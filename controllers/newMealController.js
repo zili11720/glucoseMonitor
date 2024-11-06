@@ -7,7 +7,7 @@ const path = require('path');
 
 async function addNewMeal(req, res){
 
-    const { mealDate, mealType, glucoseLevel } = req.body;
+    const { mealDate, mealType, glucoseLevel } = req.body;//Get parameters from body (post method)
     const userId = req.session.userId;//Get current user id from id session
 
 
@@ -45,7 +45,7 @@ async function addNewMeal(req, res){
 // Configure multer storage
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
-      cb(null, 'public/uploads/'); // Ensure this directory exists
+      cb(null, 'public/uploads/'); //Keep the file in this directory
     },
     filename: (req, file, cb) => {
       cb(null, Date.now() + path.extname(file.originalname)); // Ensure file extension is added

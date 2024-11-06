@@ -21,7 +21,7 @@ const processMealsData = (mealsData) => {
 
     // Initialize entry for the date if it doesn't exist
     if (!dailyGlucoseMap[dateKey]) {
-      dailyGlucoseMap[dateKey] = { totalGlucose: 0, count: 0 };
+      dailyGlucoseMap[dateKey] = { totalGlucose: 0, count: 0 };//Total glucose of this day, number of meals in this day
     }
 
     // Accumulate glucose levels and count

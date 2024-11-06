@@ -5,7 +5,6 @@ const getUSDAglucose = async (foodTag) => {
   
     try {
       const foodData = await USDADataAccess.getUSDAglucose(foodTag);
-        
       // Find total sugars from the food's nutrients
       const totalSugars = foodData.foodNutrients.find(nutrient => nutrient.nutrientName.toLowerCase() === 'total sugars');
       // Return total sugars if found, else return null
