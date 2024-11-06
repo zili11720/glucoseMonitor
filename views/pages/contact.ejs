@@ -13,7 +13,7 @@
     <section class="wrapper style5">
       <div class="inner">
         <div class="form-container">
-          <form id="consultation-form" action="/contact/submit-consultation" method="POST">
+          <form id="consultation-form">
             <div class="form-group">
               <label for="topic">Select Topic:</label>
               <select id="topic" name="topic" required>
@@ -49,6 +49,45 @@
     </section>
   </article>
 
+  <!-- Thank You Modal Popup -->
+  <div id="thankYouModal" class="modal">
+    <div class="modal-content">
+      <span class="close">&times;</span>
+      <p>Thank you for reaching out! We will get back to you shortly.</p>
+    </div>
+  </div>
+
   <%- include('../partials/footer') %>
+
+  <script>
+    // JavaScript for displaying thank you modal on form submission
+    document.addEventListener("DOMContentLoaded", function() {
+      var form = document.getElementById("consultation-form");
+      form.onsubmit = function(event) {
+        event.preventDefault(); // Prevent actual form submission
+
+        // Show the "Thank You" modal
+        var modal = document.getElementById("thankYouModal");
+        modal.style.display = "block";
+
+        // Clear form fields (optional)
+        form.reset();
+      };
+
+      // Close the modal when the 'X' is clicked
+      var closeButton = document.querySelector("#thankYouModal .close");
+      closeButton.onclick = function() {
+        document.getElementById("thankYouModal").style.display = "none";
+      };
+
+      // Close the modal when the user clicks outside of it
+      window.onclick = function(event) {
+        var modal = document.getElementById("thankYouModal");
+        if (event.target == modal) {
+          modal.style.display = "none";
+        }
+      };
+    });
+  </script>
 </body>
 </html>
