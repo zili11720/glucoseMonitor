@@ -14,7 +14,7 @@ const startKafkaConsumer = async (req, res) => {
 
 };
 
-const disconnectKafkaConsumer = async (req, res, next) => {
+const disconnectKafkaConsumer = async (req, res) => {
   console.log("loging out")
   // Disconnect glucose consumer if it exists
   if (glucoseConsumer) {
